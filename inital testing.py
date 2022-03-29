@@ -52,7 +52,8 @@ df['destination_city'].replace(["Mumbai", "Delhi", "Bangalore", "Kolkata", "Hyde
 #%%
 df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
 # %%
-sns.heatmap(df.corr())
+corr = df.corr()
+ax1 = sns.heatmap(corr, cbar=0, linewidths=2,vmax=1, vmin=0, square=True, cmap='Blues')
 plt.title("correlation of all the variables")
 plt.show()
 # %%
