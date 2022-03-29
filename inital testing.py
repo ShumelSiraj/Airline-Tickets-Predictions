@@ -6,4 +6,3 @@ import seaborn as sns
 #%% reading in data 
 df = pd.read_csv (r'C:\Users\pavan\Desktop\Git\6103 project\airline_data.csv') 
 
-# %%
