@@ -59,7 +59,7 @@ plt.show()
 # %%
 df
 
-#%%
+#%%stripplots to look at economy and business
 fig, axes = plt.subplots(1,3,figsize=(30,20))
 
 sns.stripplot(ax=axes[0], data=df, x='class',y='price', dodge='true',hue='stops', jitter=.5, palette='rocket')
@@ -69,4 +69,63 @@ sns.stripplot(ax=axes[1], data=df, x='class',y='price', dodge='true',hue='arriva
 sns.stripplot(ax=axes[2], data=df, x='class',y='price', dodge='true',hue='departure_time', jitter=.5,palette='rocket')
 
 
-# %%
+# %% scatterplots for each airline for different number of stops
+
+# Air_India
+fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+air_india=df[df['airline']=="Air_India"]
+sns.regplot( ax=ax1, x="duration", y="price", data=air_india[air_india['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax2, x="duration", y="price", data=air_india[air_india['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax3, x="duration", y="price", data=air_india[air_india['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+
+# SpiceJet
+fig2, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+spicejet=df[df['airline']=='SpiceJet']
+sns.regplot( ax=ax1, x="duration", y="price", data=spicejet[spicejet['stops']==0],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax2, x="duration", y="price", data=spicejet[spicejet['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax3, x="duration", y="price", data=spicejet[spicejet['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+
+# Indigo
+fig3, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+indigo=df[df['airline']=='Indigo']
+sns.regplot( ax=ax1, x="duration", y="price", data=indigo[indigo['stops']==0],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax2, x="duration", y="price", data=indigo[indigo['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax3, x="duration", y="price", data=indigo[indigo['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+
+# GO_FIRST
+fig4, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+gofirst=df[df['airline']=='GO_FIRST']
+sns.regplot( ax=ax1, x="duration", y="price", data=gofirst[gofirst['stops']==0],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax2, x="duration", y="price", data=gofirst[gofirst['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax3, x="duration", y="price", data=gofirst[gofirst['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+
+# Vistara
+fig5, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+vistara=df[df['airline']=='Vistara']
+sns.regplot( ax=ax1, x="duration", y="price", data=vistara[vistara['stops']==0],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax2, x="duration", y="price", data=vistara[vistara['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax3, x="duration", y="price", data=vistara[vistara['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+
+# AirAsia
+fig6, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+airasia=df[df['airline']=='AirAsia']
+sns.regplot( ax=ax1, x="duration", y="price", data=airasia[airasia['stops']==0],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax2, x="duration", y="price", data=airasia[airasia['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+sns.regplot( ax=ax3, x="duration", y="price", data=airasia[airasia['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
