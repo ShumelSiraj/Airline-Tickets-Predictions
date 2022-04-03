@@ -57,7 +57,16 @@ ax1 = sns.heatmap(corr, cbar=0, linewidths=2,vmax=1, vmin=0, square=True, cmap='
 plt.title("correlation of all the variables")
 plt.show()
 # %%
-
-# %%
 df
 
+#%%
+fig, axes = plt.subplots(1,3,figsize=(30,20))
+
+sns.stripplot(ax=axes[0], data=df, x='class',y='price', dodge='true',hue='stops', jitter=.5, palette='rocket')
+
+sns.stripplot(ax=axes[1], data=df, x='class',y='price', dodge='true',hue='arrival_time', jitter=.5,palette='rocket')
+
+sns.stripplot(ax=axes[2], data=df, x='class',y='price', dodge='true',hue='departure_time', jitter=.5,palette='rocket')
+
+
+# %%
