@@ -52,12 +52,57 @@ df['destination_city'].replace(["Mumbai", "Delhi", "Bangalore", "Kolkata", "Hyde
 #%%
 df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
 # %%
+df
+# %%
 corr = df.corr()
 ax1 = sns.heatmap(corr, cbar=0, linewidths=2,vmax=1, vmin=0, square=True, cmap='Blues')
 plt.title("correlation of all the variables")
 plt.show()
 # %%
+fig, axes = plt.subplots(1,3,figsize=(20,20))
+
+sns.stripplot(ax=axes[0], data=df, x='class',y='price', dodge='true',hue='stops', jitter=.5, palette='rocket')
+
+sns.stripplot(ax=axes[1], data=df, x='class',y='price', dodge='true',hue='arrival_time', jitter=.5,palette='rocket')
+
+sns.stripplot(ax=axes[2], data=df, x='class',y='price', dodge='true',hue='departure_time', jitter=.5,palette='rocket')
 
 # %%
-df
+sns.boxplot(x="stops", y="price", data=df,palette='rocket')
+#%%
+sc1=df[df['stops']==0]
+sc2=df[df['stops']==1]
+sc3=df[df['stops']==2]
 
+sns.lmplot(x="duration", y="price", data=sc3,palette='rocket', hue="airline")
+
+
+
+
+# %%
+spicejet=df[df['airline']=='SpiceJet']
+sc_Indigo=df[df['airline']=="Indigo"]
+sc_GO_FIRST=df[df['airline']=="GO_FIRST"]
+sc3=df[df['airline']=="Vistara"]
+sc3=df[df['airline']=="AirAsia"]
+sc3=df[df['airline']=="Air_India"]
+
+fig, (ax1, ax2, ax3) = plt.subplots(ncols=3)
+
+sns.lmplot( x="duration", y="price", data=sc_Indigo[sc_Indigo['stops']==0] ,palette='rocket', hue="stops", ax=ax1)
+
+
+
+# %%
+spicejet=df[df['airline']=='SpiceJet']
+spicejet=spicejet.pivot_table(index='source_city', columns ='destination_city', values='price', aggfunc='mean')
+sns.heatmap(spicejet)
+
+# %%
+
+# %%
+spicejet=df[df['airline']=='SpiceJet']
+spicejet=spicejet[['price','duration','stops']]
+sns.pairplot(spicejet, hue ='stops')
+
+# %%
