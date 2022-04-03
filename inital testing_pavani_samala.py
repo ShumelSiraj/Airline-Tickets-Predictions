@@ -18,3 +18,14 @@ sns.stripplot(ax=axes[0], data=df, x='class',y='price', dodge='true',hue='depart
 sns.stripplot(ax=axes[1], data=df, x='class',y='price', dodge='true',hue='source_city', jitter=.5)
 
 # %%
+sc1=df[df['source_city']=='Dehli']
+sc2=df[df['source_city']=='Mumbai']
+sc3=df[df['source_city']=='Bangalore']
+sc4=df[df['source_city']=='Kolkata']
+sc5=df[df['source_city']=='Hyderabad']
+sc6=df[df['source_city']=='Chennai']
+data = [ sc1['price'], sc2['price'], sc3['price'], sc4['price'],sc5['price'],sc6['price'] ]
+plt.boxplot(data)
+# %%
+df.pivot(index="airline", columns="destination_city", values="price")
+# %%
