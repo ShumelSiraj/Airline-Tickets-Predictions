@@ -53,7 +53,7 @@ df['destination_city'].replace(["Mumbai", "Delhi", "Bangalore", "Kolkata", "Hyde
 df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
 # %%
 corr = df.corr()
-ax1 = sns.heatmap(corr, cbar=0, linewidths=2,vmax=1, vmin=0, square=True, cmap='Blues')
+ax1 = sns.heatmap(corr, cbar=0, linewidths=2,vmax=1, vmin=0, square=True, cmap='Blues', annot=True,annot_kws = {'size':5})
 plt.title("correlation of all the variables")
 plt.show()
 # %%
@@ -154,3 +154,5 @@ ax3=sns.regplot( ax=ax3, x="duration", y="price", data=airasia[airasia['stops']=
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 #%%
+
+# %%
