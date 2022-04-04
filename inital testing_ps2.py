@@ -165,3 +165,9 @@ spicejet=spicejet[['price','duration','stops']]
 sns.pairplot(spicejet, hue ='stops')
 
 # %%
+sns.violinplot(x="stops", y="duration", data=airasia ,palette='rocket')
+# %%
+plt.hist(df['price'])
+plt.xlabel('price')
+plt.ylabel('fequency')
+plt.show()
