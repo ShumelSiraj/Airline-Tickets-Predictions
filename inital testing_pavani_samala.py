@@ -27,8 +27,5 @@ sc6=df[df['source_city']=='Chennai']
 data = [ sc1['price'], sc2['price'], sc3['price'], sc4['price'],sc5['price'],sc6['price'] ]
 plt.boxplot(data)
 # %%
-<<<<<<< HEAD
-=======
 df.pivot(index="airline", columns="destination_city", values="price")
 # %%
->>>>>>> main
