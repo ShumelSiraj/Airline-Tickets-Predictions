@@ -186,3 +186,8 @@ model_AirAsia_3 = ols(formula='price ~ duration + stops + days_left', data=airas
 model_AirAsia_3_Fit = model_AirAsia_3.fit()
 print( model_AirAsia_3_Fit.summary())
 # %%
+sns.scatterplot(data=airasia, x="days_left", y="price")
+sns.regplot(data=airasia, x="days_left", y="price",scatter_kws={"color": "black"}, line_kws={"color": "red"})
+# %%
+sns.boxplot(data=df, x="class", y="price", hue="airline")
+# %%
