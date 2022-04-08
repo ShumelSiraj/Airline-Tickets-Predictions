@@ -1,8 +1,10 @@
 #%%
 import numpy as np
 import pandas as pd
+from prometheus_client import Summary
 import seaborn as sns
 import matplotlib.pyplot as plt
+from statsmodels.formula.api import ols
 # %%
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
@@ -171,6 +173,8 @@ ax3=sns.regplot( ax=ax3, x="duration", y="price", data=airasia[airasia['stops']=
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_xlim(0,55)
-#%%
-
+#%% linear regression
+model_AirAsia = ols(formula='price ~ duration', data=airasia)
+model_AirAsiaFit = model_AirAsia.fit()
+print( model_AirAsiaFit.summary())
 # %%
