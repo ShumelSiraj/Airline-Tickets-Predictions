@@ -6,6 +6,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from statsmodels.formula.api import ols
 # %%
+df_source= pd.read_csv("Clean_Dataset.csv")
+del df_source['Unnamed: 0']
+#%%
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
 
@@ -59,8 +62,9 @@ ax1 = sns.heatmap(corr, cbar=0, linewidths=2,vmax=1, vmin=0, square=True, cmap='
 plt.title("correlation of all the variables")
 plt.show()
 # %%
-df
 
+# %%
+sns.pairplot(df)
 #%%stripplots to look at economy and business
 fig, axes = plt.subplots(1,3,figsize=(30,20))
 
@@ -185,6 +189,17 @@ print( model_AirAsia_2_Fit.summary())
 model_AirAsia_3 = ols(formula='price ~ duration + stops + days_left', data=airasia)
 model_AirAsia_3_Fit = model_AirAsia_3.fit()
 print( model_AirAsia_3_Fit.summary())
+# %%
+airasia=df_source[df_source['airline']=='AirAsia']
+model_AirAsia_1 = ols(formula='price ~ duration', data=airasia)
+model_AirAsia_1_Fit = model_AirAsia_1.fit()
+print( model_AirAsia_1_Fit.summary())
+
+model_AirAsia_2 = ols(formula='price ~ duration * stops', data=airasia)
+model_AirAsia_2_Fit = model_AirAsia_2.fit()
+print( model_AirAsia_2_Fit.summary())
+
+
 # %%
 sns.scatterplot(data=airasia, x="days_left", y="price")
 sns.regplot(data=airasia, x="days_left", y="price",scatter_kws={"color": "black"}, line_kws={"color": "red"})
