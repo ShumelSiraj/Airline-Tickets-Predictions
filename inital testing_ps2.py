@@ -69,27 +69,10 @@ sns.stripplot(ax=axes[2], data=df, x='class',y='price', dodge='true',hue='depart
 
 # %%
 sns.boxplot(x="stops", y="price", data=df,palette='rocket')
-#%%
-sc1=df[df['stops']==0]
-sc2=df[df['stops']==1]
-sc3=df[df['stops']==2]
-
-sns.lmplot(x="duration", y="price", data=sc3,palette='rocket', hue="airline")
-
 
 
 
 # %%
-spicejet=df[df['airline']=='SpiceJet']
-sc_Indigo=df[df['airline']=="Indigo"]
-sc_GO_FIRST=df[df['airline']=="GO_FIRST"]
-sc3=df[df['airline']=="Vistara"]
-sc3=df[df['airline']=="AirAsia"]
-sc3=df[df['airline']=="Air_India"]
-
-fig, (ax1, ax2, ax3) = plt.subplots(ncols=3)
-
-sns.lmplot( x="duration", y="price", data=sc_Indigo[sc_Indigo['stops']==0] ,palette='rocket', hue="stops", ax=ax1)
 
 
 
@@ -102,6 +85,9 @@ sns.heatmap(spicejet)
 
 # Air_India
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+plt.xlim(0, 55)
+plt.ylim(0,123071)
+
 air_india=df[df['airline']=="Air_India"]
 sns.regplot( ax=ax1, x="duration", y="price", data=air_india[air_india['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 sns.regplot( ax=ax2, x="duration", y="price", data=air_india[air_india['stops']==1],
@@ -171,3 +157,4 @@ plt.hist(df['price'])
 plt.xlabel('price')
 plt.ylabel('fequency')
 plt.show()
+#%%
