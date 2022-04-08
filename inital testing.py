@@ -173,8 +173,16 @@ ax3=sns.regplot( ax=ax3, x="duration", y="price", data=airasia[airasia['stops']=
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_xlim(0,55)
-#%% linear regression
-model_AirAsia = ols(formula='price ~ duration', data=airasia)
-model_AirAsiaFit = model_AirAsia.fit()
-print( model_AirAsiaFit.summary())
+#%% linear regression AirAsia
+model_AirAsia_1 = ols(formula='price ~ duration', data=airasia)
+model_AirAsia_1_Fit = model_AirAsia_1.fit()
+print( model_AirAsia_1_Fit.summary())
+
+model_AirAsia_2 = ols(formula='price ~ duration + stops', data=airasia)
+model_AirAsia_2_Fit = model_AirAsia_2.fit()
+print( model_AirAsia_2_Fit.summary())
+
+model_AirAsia_3 = ols(formula='price ~ duration + stops + days_left', data=airasia)
+model_AirAsia_3_Fit = model_AirAsia_3.fit()
+print( model_AirAsia_3_Fit.summary())
 # %%
