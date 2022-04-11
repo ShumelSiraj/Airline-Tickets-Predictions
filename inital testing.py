@@ -3,7 +3,12 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+
 # %%
+
+
+
+#%%
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
 
@@ -154,5 +159,16 @@ ax3=sns.regplot( ax=ax3, x="duration", y="price", data=airasia[airasia['stops']=
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 #%%
+airasia2=df_source[df_source['airline']=='AirAsia']
+model_AirAsia_1 = ols(formula='price ~ duration', data=airasia2)
+model_AirAsia_1_Fit = model_AirAsia_1.fit()
+print( model_AirAsia_1_Fit.summary())
 
+model_AirAsia_2 = ols(formula='price ~ duration * stops', data=airasia2)
+model_AirAsia_2_Fit = model_AirAsia_2.fit()
+print( model_AirAsia_2_Fit.summary())
+
+model_AirAsia_3 = ols(formula='price ~ duration * stops * Coming_up', data=airasia2)
+model_AirAsia_3_Fit = model_AirAsia_3.fit()
+print( model_AirAsia_3_Fit.summary())
 # %%
