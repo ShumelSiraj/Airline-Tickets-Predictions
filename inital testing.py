@@ -5,7 +5,23 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # %%
+df_source= pd.read_csv("Clean_Dataset.csv")
+del df_source['Unnamed: 0']
 
+coming_up=[]
+for value in df_source["days_left"]:
+    if 0 <= value <= 7:
+        coming_up.append("Very Soon")
+    if 8 <= value <= 14:
+        coming_up.append("Soon")
+    if 15 <= value <= 35:
+        coming_up.append("Far Away")
+    if value <= 36:
+        coming_up.append("Very Far Away")
+    else:
+        coming_up.append("NA")   
+df_source['Coming_up'] = pd.Series(coming_up)   
+print(df_source)
 
 
 #%%
