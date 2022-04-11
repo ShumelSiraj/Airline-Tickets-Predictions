@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+from statsmodels.formula.api import ols
 # %%
 df_source= pd.read_csv("Clean_Dataset.csv")
 del df_source['Unnamed: 0']
