@@ -174,17 +174,38 @@ ax2.set_title("1 stop", fontsize=30)
 ax3=sns.regplot( ax=ax3, x="duration", y="price", data=airasia[airasia['stops']==2],
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
-#%%
-airasia2=df_source[df_source['airline']=='AirAsia']
-model_AirAsia_1 = ols(formula='price ~ duration', data=airasia2)
-model_AirAsia_1_Fit = model_AirAsia_1.fit()
-print( model_AirAsia_1_Fit.summary())
 
-model_AirAsia_2 = ols(formula='price ~ duration * stops', data=airasia2)
-model_AirAsia_2_Fit = model_AirAsia_2.fit()
-print( model_AirAsia_2_Fit.summary())
+# %% linear model for economy class tickets
+econ=df[df['class']==0]
+econ_source=df_source[df_source['class']=='Economy']
 
-model_AirAsia_3 = ols(formula='price ~ duration * stops * Coming_up', data=airasia2)
-model_AirAsia_3_Fit = model_AirAsia_3.fit()
-print( model_AirAsia_3_Fit.summary())
+model_econ_1 = ols(formula='price ~ duration', data=econ)
+model_econ_1_Fit = model_econ_1.fit()
+print(model_econ_1_Fit.summary())
+
+model_econ_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=econ_source)
+model_econ_2_Fit = model_econ_2.fit()
+print(model_econ_2_Fit.summary())
+
+model_econ_3 = ols(formula='price ~ duration * stops * Coming_up', data=econ_source)
+model_econ_3_Fit = model_econ_3.fit()
+print(model_econ_3_Fit.summary())
+
+
+
+#%% linear model for business class tickets
+buz=df[df['class']==0]
+buz_source=df_source[df_source['class']=='Business']
+
+model_buz_1 = ols(formula='price ~ duration', data=buz)
+model_buz_1_Fit = model_buz_1.fit()
+print(model_buz_1_Fit.summary())
+
+model_buz_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=buz_source)
+model_buz_2_Fit = model_buz_2.fit()
+print(model_buz_2_Fit.summary())
+
+model_buz_3 = ols(formula='price ~ duration * stops * Coming_up', data=buz_source)
+model_buz_3_Fit = model_buz_3.fit()
+print(model_buz_3_Fit.summary())
 # %%
