@@ -123,7 +123,26 @@ ax3=sns.regplot( ax=ax3, x="duration", y="price", data=air_india[air_india['stop
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_xlim(0,55)
+#%%
 
+econ=df[df['class']==0]
+buz=df[df['class']==1]
+# Air_India
+fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20), sharey=True)
+air_india=buz[buz['airline']=="Air_India"]
+fig1.suptitle("Airline: Air_India", fontsize=60)
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=air_india[air_india['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax1.set_title("0 stops", fontsize=30)
+ax1.set_xlim(0,55)
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=air_india[air_india['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax2.set_title("1 stop", fontsize=30)
+ax2.set_xlim(0,55)
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=air_india[air_india['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax3.set_title("2 or more stops", fontsize=30)
+ax3.set_xlim(0,55)
+#%%
 # SpiceJet
 fig2, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20),sharey=True)
 spicejet=df[df['airline']=='SpiceJet']
@@ -234,18 +253,20 @@ model_AirAsia_3 = ols(formula='price ~ duration * stops * Coming_up', data=airas
 model_AirAsia_3_Fit = model_AirAsia_3.fit()
 print( model_AirAsia_3_Fit.summary())
 # %%
-airasia2=df_source[df_source['airline']=='AirAsia']
-model_AirAsia_1 = ols(formula='price ~ duration', data=airasia2)
-model_AirAsia_1_Fit = model_AirAsia_1.fit()
-print( model_AirAsia_1_Fit.summary())
+econ=df[df['class']==0]
+econ_source=df_source[df_source['class']=='Economy']
 
-model_AirAsia_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=airasia2)
-model_AirAsia_2_Fit = model_AirAsia_2.fit()
-print( model_AirAsia_2_Fit.summary())
+model_econ_1 = ols(formula='price ~ duration', data=econ)
+model_econ_1_Fit = model_econ_1.fit()
+print(model_econ_1_Fit.summary())
 
-model_AirAsia_3 = ols(formula='price ~ duration * stops * Coming_up', data=airasia2)
-model_AirAsia_3_Fit = model_AirAsia_3.fit()
-print( model_AirAsia_3_Fit.summary())
+model_econ_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=econ_source)
+model_econ_2_Fit = model_econ_2.fit()
+print(model_econ_2_Fit.summary())
+
+model_econ_3 = ols(formula='price ~ duration * stops * Coming_up', data=econ_source)
+model_econ_3_Fit = model_econ_3.fit()
+print(model_econ_3_Fit.summary())
 # %%
 sns.scatterplot(data=airasia, x="days_left", y="price")
 sns.regplot(data=airasia, x="days_left", y="price",scatter_kws={"color": "black"}, line_kws={"color": "red"})
