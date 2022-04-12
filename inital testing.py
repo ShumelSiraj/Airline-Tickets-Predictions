@@ -91,8 +91,20 @@ sns.stripplot(ax=axes[0], data=df, x='class',y='price', dodge='true',hue='stops'
 sns.stripplot(ax=axes[1], data=df, x='class',y='price', dodge='true',hue='arrival_time', jitter=.5,palette='rocket')
 
 sns.stripplot(ax=axes[2], data=df, x='class',y='price', dodge='true',hue='departure_time', jitter=.5,palette='rocket')
+#%%
 
+econ=df[df['class']==0]
+sns.stripplot(data=econ, x='class',y='price', dodge='true',hue='arrival_time', jitter=.5,palette='rocket')
 
+econ=df[df['class']==1]
+sns.stripplot(data=econ, x='class',y='price', dodge='true',hue='arrival_time', jitter=.5,palette='rocket')
+
+#%%
+econ=df[df['class']==0]
+sns.stripplot(data=econ, x='class',y='price', dodge='true',hue='departure_time', jitter=.5,palette='rocket')
+
+econ=df[df['class']==1]
+sns.stripplot(data=econ, x='class',y='price', dodge='true',hue='departure_time', jitter=.5,palette='rocket')
 # %% scatterplots for each airline for different number of stops
 
 # Air_India
