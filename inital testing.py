@@ -232,7 +232,19 @@ print( model_AirAsia_2_Fit.summary())
 model_AirAsia_3 = ols(formula='price ~ duration * stops * Coming_up', data=airasia2)
 model_AirAsia_3_Fit = model_AirAsia_3.fit()
 print( model_AirAsia_3_Fit.summary())
+# %%
+airasia2=df_source[df_source['airline']=='AirAsia']
+model_AirAsia_1 = ols(formula='price ~ duration', data=airasia2)
+model_AirAsia_1_Fit = model_AirAsia_1.fit()
+print( model_AirAsia_1_Fit.summary())
 
+model_AirAsia_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=airasia2)
+model_AirAsia_2_Fit = model_AirAsia_2.fit()
+print( model_AirAsia_2_Fit.summary())
+
+model_AirAsia_3 = ols(formula='price ~ duration * stops * Coming_up', data=airasia2)
+model_AirAsia_3_Fit = model_AirAsia_3.fit()
+print( model_AirAsia_3_Fit.summary())
 # %%
 sns.scatterplot(data=airasia, x="days_left", y="price")
 sns.regplot(data=airasia, x="days_left", y="price",scatter_kws={"color": "black"}, line_kws={"color": "red"})
