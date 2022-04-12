@@ -106,10 +106,11 @@ sns.stripplot(data=econ, x='class',y='price', dodge='true',hue='departure_time',
 econ=df[df['class']==1]
 sns.stripplot(data=econ, x='class',y='price', dodge='true',hue='departure_time', jitter=.5,palette='rocket')
 # %% scatterplots for each airline for different number of stops
-
+econ=df[df['class']==0]
+buz=df[df['class']==1]
 # Air_India
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20), sharey=True)
-air_india=df[df['airline']=="Air_India"]
+air_india=econ[econ['airline']=="Air_India"]
 fig1.suptitle("Airline: Air_India", fontsize=60)
 ax1=sns.regplot( ax=ax1, x="duration", y="price", data=air_india[air_india['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax1.set_title("0 stops", fontsize=30)
