@@ -252,7 +252,7 @@ print( model_AirAsia_2_Fit.summary())
 model_AirAsia_3 = ols(formula='price ~ duration * stops * Coming_up', data=airasia2)
 model_AirAsia_3_Fit = model_AirAsia_3.fit()
 print( model_AirAsia_3_Fit.summary())
-# %%
+# %% linear model for economy class tickets
 econ=df[df['class']==0]
 econ_source=df_source[df_source['class']=='Economy']
 
@@ -267,6 +267,22 @@ print(model_econ_2_Fit.summary())
 model_econ_3 = ols(formula='price ~ duration * stops * Coming_up', data=econ_source)
 model_econ_3_Fit = model_econ_3.fit()
 print(model_econ_3_Fit.summary())
+
+#%% linear model for business class tickets
+buz=df[df['class']==0]
+buz_source=df_source[df_source['class']=='Business']
+
+model_buz_1 = ols(formula='price ~ duration', data=buz)
+model_buz_1_Fit = model_buz_1.fit()
+print(model_buz_1_Fit.summary())
+
+model_buz_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=buz_source)
+model_buz_2_Fit = model_buz_2.fit()
+print(model_buz_2_Fit.summary())
+
+model_buz_3 = ols(formula='price ~ duration * stops * Coming_up', data=buz_source)
+model_buz_3_Fit = model_buz_3.fit()
+print(model_buz_3_Fit.summary())
 # %%
 sns.scatterplot(data=airasia, x="days_left", y="price")
 sns.regplot(data=airasia, x="days_left", y="price",scatter_kws={"color": "black"}, line_kws={"color": "red"})
