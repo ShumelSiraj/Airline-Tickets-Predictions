@@ -80,16 +80,12 @@ plt.show()
 # %%
 df
 
-#%%stripplots to look at economy and business
-fig, axes = plt.subplots(1,3,figsize=(30,20))
+#%% subset of economy and business data 
+econ=df[df['class']==0]
+econ_source=df_source[df_source['class']=='Economy']
 
-sns.stripplot(ax=axes[0], data=df, x='class',y='price', dodge='true',hue='stops', jitter=.5, palette='rocket')
-
-sns.stripplot(ax=axes[1], data=df, x='class',y='price', dodge='true',hue='arrival_time', jitter=.5,palette='rocket')
-
-sns.stripplot(ax=axes[2], data=df, x='class',y='price', dodge='true',hue='departure_time', jitter=.5,palette='rocket')
-
-
+buz=df[df['class']==0]
+buz_source=df_source[df_source['class']=='Business']
 # %% scatterplots for each airline for different number of stops
 
 # Air_India
@@ -176,8 +172,6 @@ scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 
 # %% linear model for economy class tickets
-econ=df[df['class']==0]
-econ_source=df_source[df_source['class']=='Economy']
 
 model_econ_1 = ols(formula='price ~ duration', data=econ)
 model_econ_1_Fit = model_econ_1.fit()
@@ -194,8 +188,6 @@ print(model_econ_3_Fit.summary())
 
 
 #%% linear model for business class tickets
-buz=df[df['class']==0]
-buz_source=df_source[df_source['class']=='Business']
 
 model_buz_1 = ols(formula='price ~ duration', data=buz)
 model_buz_1_Fit = model_buz_1.fit()
