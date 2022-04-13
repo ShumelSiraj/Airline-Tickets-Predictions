@@ -88,88 +88,24 @@ buz=df[df['class']==0]
 buz_source=df_source[df_source['class']=='Business']
 # %% scatterplots for each airline for different number of stops
 
-# Air_India
+# Economy
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
-air_india=df[df['airline']=="Air_India"]
+plt.xlim(0, 55)
 fig1.suptitle("Airline: Air_India", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=air_india[air_india['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax1.set_title("0 stops", fontsize=30)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=air_india[air_india['stops']==1],
+ax1.set_ylim(1, 40000)
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=econ[econ['stops']==1],
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax2.set_title("1 stop", fontsize=30)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=air_india[air_india['stops']==2],
+ax2.set_ylim(1, 40000)
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
+ax3.set_ylim(1, 40000)
 
-# SpiceJet
-fig2, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
-spicejet=df[df['airline']=='SpiceJet']
-fig2.suptitle("Airline: SpiceJet", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=spicejet[spicejet['stops']==0],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax1.set_title("0 stops", fontsize=30)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=spicejet[spicejet['stops']==1],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax2.set_title("1 stop", fontsize=30)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=spicejet[spicejet['stops']==2],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax3.set_title("2 or more stops", fontsize=30)
+# Business
 
-# Indigo
-fig3, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
-indigo=df[df['airline']=='Indigo']
-fig3.suptitle("Airline: Indigo", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=indigo[indigo['stops']==0],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax1.set_title("0 stops", fontsize=30)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=indigo[indigo['stops']==1],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax2.set_title("1 stop", fontsize=30)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=indigo[indigo['stops']==2],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax3.set_title("2 or more stops", fontsize=30)
-
-# GO_FIRST
-fig4, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
-gofirst=df[df['airline']=='GO_FIRST']
-fig4.suptitle("Airline: GO_FIRST", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=gofirst[gofirst['stops']==0],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax1.set_title("0 stops", fontsize=30)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=gofirst[gofirst['stops']==1],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax2.set_title("1 stop", fontsize=30)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=gofirst[gofirst['stops']==2],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax3.set_title("2 or more stops", fontsize=30)
-
-# Vistara
-fig5, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
-vistara=df[df['airline']=='Vistara']
-fig5.suptitle("Airline: Vistara", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=vistara[vistara['stops']==0],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax1.set_title("0 stops", fontsize=30)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=vistara[vistara['stops']==1],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax2.set_title("1 stop", fontsize=30)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=vistara[vistara['stops']==2],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax3.set_title("2 or more stops", fontsize=30)
-
-# AirAsia
-fig6, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
-airasia=df[df['airline']=='AirAsia']
-fig6.suptitle("Airline: AirAsia", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=airasia[airasia['stops']==0],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax1.set_title("0 stops", fontsize=30)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=airasia[airasia['stops']==1],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax2.set_title("1 stop", fontsize=30)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=airasia[airasia['stops']==2],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax3.set_title("2 or more stops", fontsize=30)
 
 # %% linear model for economy class tickets
 
