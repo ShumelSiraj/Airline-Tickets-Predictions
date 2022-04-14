@@ -23,8 +23,17 @@ sns.catplot(x="departure_time", y="price", kind="box", data=df)
 sns.catplot(x="class", y="price", kind="box", data=df)
 plt.show()
 # %%
-sns.stripplot(x="class", y="price", data=df,hue='airline')
-# %%
 sns.heatmap(df.corr(),annot=True)
+plt.show()
+
+#Economy class vs Business class
+# %%
+sns.boxplot(x='class',y='price',data=df)
+plt.show()
+# %%
+busniess=df[df['class']=='Business']
+economy=df[df['class']=='Economy']
+
+sns.stripplot(data=df, x='class',y='price', dodge='true',hue='airline', jitter=.5, palette='rocket')
 plt.show()
 # %%
