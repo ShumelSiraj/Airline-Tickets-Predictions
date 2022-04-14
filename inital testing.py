@@ -293,6 +293,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import mean_squared_error as MSE
+from sklearn.metrics import r2_score
 from sklearn import tree
 #%%
 x_Air=econ[['stops', 'duration', 'days_left']]
@@ -316,12 +317,18 @@ air_tree = DecisionTreeRegressor(max_depth=4, min_samples_leaf=0.1,random_state=
 plane=air_tree.fit(xtrain, ytrain)
 price_pred = air_tree.predict(xtest)
 
-mse = MSE(ytest, price_pred)
-print(mse** (.5))
+fn=['stops','duration','days_left']
+tree.plot_tree(plane,feature_names=fn)
+
+print("The mean square error is:", MSE(ytest, price_pred))
+print("The root mean square error is:", mse** (.5))
+print("The r square value is:", r2_score(ytest,price_pred))
+
+
 MSE_CV = - cross_val_score(air_tree, xtrain, ytrain, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 # %%
-tree.plot_tree(plane,feature_names=econ.duration)
+
 # %%
-tree.export_graphviz(air_tree,out_file="tree.dot",filled = True)
+#tree.export_graphviz(air_tree,out_file="tree.dot",filled = True)
 # %%
