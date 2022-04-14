@@ -297,12 +297,24 @@ from sklearn.metrics import mean_squared_error as MSE
 x_Air=econ[['stops', 'duration', 'days_left']]
 y_Air=econ['price']
 xtrain, xtest, ytrain, ytest = train_test_split(x_Air, y_Air, test_size=0.2,random_state=1)
-#%%
+
 air_tree = DecisionTreeRegressor(max_depth=4, min_samples_leaf=0.1,random_state=1)
-#%%
+
 air_tree.fit(xtrain, ytrain)
 price_pred = air_tree.predict(xtest)
-#%%
+
+mse = MSE(ytest, price_pred)
+print(mse** (.5))
+# %%
+x_Air=econ[['stops', 'duration', 'days_left']]
+y_Air=econ['price']
+xtrain, xtest, ytrain, ytest = train_test_split(x_Air, y_Air, test_size=0.2,random_state=1)
+
+air_tree = DecisionTreeRegressor(max_depth=4, min_samples_leaf=0.1,random_state=1)
+
+air_tree.fit(xtrain, ytrain)
+price_pred = air_tree.predict(xtest)
+
 mse = MSE(ytest, price_pred)
 print(mse** (.5))
 # %%
