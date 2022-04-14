@@ -284,8 +284,7 @@ model_buz_3 = ols(formula='price ~ duration * stops * Coming_up', data=buz_sourc
 model_buz_3_Fit = model_buz_3.fit()
 print(model_buz_3_Fit.summary())
 # %%
-sns.scatterplot(data=airasia, x="days_left", y="price")
-sns.regplot(data=airasia, x="days_left", y="price",scatter_kws={"color": "black"}, line_kws={"color": "red"})
+
 # %%
 
 # %%
@@ -328,7 +327,7 @@ print("The r square value is:", r2_score(ytest,price_pred))
 MSE_CV = - cross_val_score(air_tree, xtrain, ytrain, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 # %%
-
+plt.savefig('out.pdf')
 # %%
 #tree.export_graphviz(air_tree,out_file="tree.dot",filled = True)
 # %%
