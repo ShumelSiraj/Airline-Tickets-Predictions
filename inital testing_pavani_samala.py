@@ -84,7 +84,7 @@ df
 econ=df[df['class']==0]
 econ_source=df_source[df_source['class']=='Economy']
 
-buz=df[df['class']==0]
+buz=df[df['class']==1]
 buz_source=df_source[df_source['class']=='Business']
 # %% scatterplots for each airline for different number of stops
 
@@ -144,38 +144,68 @@ from sklearn.metrics import mean_squared_error as MSE
 from sklearn.metrics import r2_score
 from sklearn import tree
 
-# %%
-x_Air=econ[['stops', 'duration', 'days_left']]
-y_Air=econ['price']
-xtrain, xtest, ytrain, ytest = train_test_split(x_Air, y_Air, test_size=0.2,random_state=1)
+# %% Regression Tree for Economy Class
+x_Air_econ=econ[['stops', 'duration', 'days_left']]
+y_Air_econ=econ['price']
+xtrain_econ, xtest_econ, ytrain_econ, ytest_econ = train_test_split(x_Air_econ, y_Air_econ, test_size=0.2,random_state=1)
 
-air_tree = DecisionTreeRegressor(max_depth=8, min_samples_leaf=0.1,random_state=44)
+air_tree_econ = DecisionTreeRegressor(max_depth=8, min_samples_leaf=0.1,random_state=44)
 
-plane=air_tree.fit(xtrain, ytrain)
-price_pred = air_tree.predict(xtest)
+plane=air_tree_econ.fit(xtrain_econ, ytrain_econ)
+price_pred_econ = air_tree_econ.predict(xtest_econ)
 
 fn=['stops','duration','days_left']
 tree.plot_tree(plane,feature_names=fn)
 
-print("The mean square error is:", MSE(ytest, price_pred))
-print("The root mean square error is:", MSE(ytest, price_pred)** .5)
-print("The r square value is:", r2_score(ytest,price_pred))
+print("The mean square error is:", MSE(ytest_econ, price_pred_econ))
+print("The root mean square error is:", MSE(ytest_econ, price_pred_econ)** .5)
+print("The r square value is:", r2_score(ytest_econ,price_pred_econ))
 
 
-MSE_CV = - cross_val_score(air_tree, xtrain, ytrain, cv= 10, scoring='neg_mean_squared_error')
+MSE_CV = - cross_val_score(air_tree_econ, xtrain_econ, ytrain_econ, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
+
+tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ.dot",filled = True, feature_names=fn)
+#%%
+ECON=sns.scatterplot(ytest_econ,price_pred_econ)
+
+# %% Regression Tree for Business Class
+x_Air_buz=buz[['stops', 'duration', 'days_left']]
+y_Air_buz=buz['price']
+xtrain_buz, xtest_buz, ytrain_buz, ytest_buz = train_test_split(x_Air_buz, y_Air_buz, test_size=0.2,random_state=1)
+
+air_tree_buz = DecisionTreeRegressor(max_depth=8, min_samples_leaf=0.1,random_state=44)
+
+plane=air_tree_buz.fit(xtrain_buz, ytrain_buz)
+price_pred_buz = air_tree_buz.predict(xtest_buz)
+
+fn=['stops','duration','days_left']
+tree.plot_tree(plane,feature_names=fn)
+
+print("The mean square error is:", MSE(ytest_buz, price_pred_buz))
+print("The root mean square error is:", MSE(ytest_buz, price_pred_buz)** .5)
+print("The r square value is:", r2_score(ytest_buz,price_pred_buz))
+
+
+MSE_CV = - cross_val_score(air_tree_buz, xtrain_buz, ytrain_buz, cv= 10, scoring='neg_mean_squared_error')
+print(MSE_CV)
+
+tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz.dot",filled = True, feature_names=fn)
 # %%
-tree.export_graphviz(air_tree,out_file="tree.dot",filled = True)
-# %%
-sns.scatterplot(ytest,price_pred)
+BUZ=sns.scatterplot(ytest_buz,price_pred_buz)
 # %%
 from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=20)
-knn.fit(xtrain,ytrain)
-Price_pred = knn.predict(x_Air)
-print(knn.score(x_Air,y_Air))
-
+knn = KNeighborsClassifier(n_neighbors=15)
+knn.fit(xtrain_econ,ytrain_econ)
+knn_price_pred_econ = knn.predict(x_Air_econ)
+print(knn.score(x_Air_econ,y_Air_econ))
+print('R2 Value:',r2_score(ytrain_econ, knn.predict(xtrain_econ)))
 
 # %%
-
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=15)
+knn.fit(xtrain_buz,ytrain_buz)
+knn_price_pred_buz = knn.predict(x_Air_buz)
+print(knn.score(x_Air_buz,y_Air_buz))
+print('R2 Value:',r2_score(ytrain_buz, knn.predict(xtrain_buz)))
 # %%
