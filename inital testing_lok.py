@@ -26,21 +26,12 @@ plt.show()
 # %%
 sns.heatmap(df.corr(),annot=True)
 plt.show()
-df.plot.bar(x='class',y='price')
-plt.show()
 #Economy class vs Business class
 # %%
 sns.boxplot(x='class',y='price',data=df)
 plt.show()
 # %%
 sns.stripplot(data=df, x='class',y='price', dodge='true',hue='airline', jitter=.5, palette='rocket')
-plt.show()
-#%%
-sns.boxplot(x='airline',y='price',data=busniess)
-plt.show()
-# %%
-#
-sns.boxplot(x='airline',y='price',data=busniess)
 plt.show()
 #%%
 df= pd.read_csv("Clean_Dataset.csv")
