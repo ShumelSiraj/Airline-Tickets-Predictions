@@ -133,7 +133,7 @@ model_buz_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', dat
 model_buz_2_Fit = model_buz_2.fit()
 print(model_buz_2_Fit.summary())
 
-model_buz_3 = ols(formula='price ~ duration * stops * Coming_up', data=buz_source)
+model_buz_3 = ols(formula='price ~ duration * stops * days_left', data=buz_source)
 model_buz_3_Fit = model_buz_3.fit()
 print(model_buz_3_Fit.summary())
 # %%
@@ -165,7 +165,7 @@ print("The r square value is:", r2_score(ytest_econ,price_pred_econ))
 MSE_CV = - cross_val_score(air_tree_econ, xtrain_econ, ytrain_econ, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 
-tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ.dot",filled = True, feature_names=fn)
+tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ_1.dot",filled = True, feature_names=fn)
 #%%
 ECON=sns.scatterplot(ytest_econ,price_pred_econ)
 
@@ -190,12 +190,12 @@ print("The r square value is:", r2_score(ytest_buz,price_pred_buz))
 MSE_CV = - cross_val_score(air_tree_buz, xtrain_buz, ytrain_buz, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 
-tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz.dot",filled = True, feature_names=fn)
+tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz.dot_1",filled = True, feature_names=fn)
 # %%
 BUZ=sns.scatterplot(ytest_buz,price_pred_buz)
 # %%
 from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=15)
+knn = KNeighborsClassifier(n_neighbors=7)
 knn.fit(xtrain_econ,ytrain_econ)
 knn_price_pred_econ = knn.predict(x_Air_econ)
 print(knn.score(x_Air_econ,y_Air_econ))
@@ -203,9 +203,124 @@ print('R2 Value:',r2_score(ytrain_econ, knn.predict(xtrain_econ)))
 
 # %%
 from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=15)
+knn = KNeighborsClassifier(n_neighbors=7)
 knn.fit(xtrain_buz,ytrain_buz)
 knn_price_pred_buz = knn.predict(x_Air_buz)
 print(knn.score(x_Air_buz,y_Air_buz))
 print('R2 Value:',r2_score(ytrain_buz, knn.predict(xtrain_buz)))
 # %%
+# %% linear model for economy class tickets
+
+model_econ_1 = ols(formula='price ~ C(stops)', data=econ)
+model_econ_1_Fit = model_econ_1.fit()
+print(model_econ_1_Fit.summary())
+
+model_econ_2 = ols(formula='price ~ C(stops) * C(source_city)', data=econ_source)
+model_econ_2_Fit = model_econ_2.fit()
+print(model_econ_2_Fit.summary())
+
+model_econ_3 = ols(formula='price ~  C(stops) * C(source_city) * days_left', data=econ_source)
+model_econ_3_Fit = model_econ_3.fit()
+print(model_econ_3_Fit.summary())
+
+
+
+#%% linear model for business class tickets
+
+model_buz_1 = ols(formula='price ~ C(stops)', data=buz)
+model_buz_1_Fit = model_buz_1.fit()
+print(model_buz_1_Fit.summary())
+
+model_buz_2 = ols(formula='price ~ C(stops) * C(source_city)', data=buz_source)
+model_buz_2_Fit = model_buz_2.fit()
+print(model_buz_2_Fit.summary())
+
+model_buz_3 = ols(formula='price ~ C(stops) * C(source_city) * days_left', data=buz_source)
+model_buz_3_Fit = model_buz_3.fit()
+print(model_buz_3_Fit.summary())
+# %% Regression Tree for Economy Class
+x_Air_econ=econ[['stops', 'source_city', 'destination_city']]
+y_Air_econ=econ['price']
+xtrain_econ, xtest_econ, ytrain_econ, ytest_econ = train_test_split(x_Air_econ, y_Air_econ, test_size=0.2,random_state=1)
+
+air_tree_econ = DecisionTreeRegressor(max_depth=8, min_samples_leaf=0.1,random_state=44)
+
+plane=air_tree_econ.fit(xtrain_econ, ytrain_econ)
+price_pred_econ = air_tree_econ.predict(xtest_econ)
+
+fn=['stops', 'source_city', 'destination_city']
+tree.plot_tree(plane,feature_names=fn)
+
+print("The mean square error is:", MSE(ytest_econ, price_pred_econ))
+print("The root mean square error is:", MSE(ytest_econ, price_pred_econ)** .5)
+print("The r square value is:", r2_score(ytest_econ,price_pred_econ))
+
+
+MSE_CV = - cross_val_score(air_tree_econ, xtrain_econ, ytrain_econ, cv= 10, scoring='neg_mean_squared_error')
+print(MSE_CV)
+
+tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ_2.dot",filled = True, feature_names=fn)
+#%%
+ECON=sns.scatterplot(ytest_econ,price_pred_econ)
+
+# %% Regression Tree for Business Class
+x_Air_buz=buz[['stops', 'source_city', 'destination_city']]
+y_Air_buz=buz['price']
+xtrain_buz, xtest_buz, ytrain_buz, ytest_buz = train_test_split(x_Air_buz, y_Air_buz, test_size=0.2,random_state=1)
+
+air_tree_buz = DecisionTreeRegressor(max_depth=8, min_samples_leaf=0.1,random_state=44)
+
+plane=air_tree_buz.fit(xtrain_buz, ytrain_buz)
+price_pred_buz = air_tree_buz.predict(xtest_buz)
+
+fn=['stops', 'source_city', 'destination_city']
+tree.plot_tree(plane,feature_names=fn)
+
+print("The mean square error is:", MSE(ytest_buz, price_pred_buz))
+print("The root mean square error is:", MSE(ytest_buz, price_pred_buz)** .5)
+print("The r square value is:", r2_score(ytest_buz,price_pred_buz))
+
+
+MSE_CV = - cross_val_score(air_tree_buz, xtrain_buz, ytrain_buz, cv= 10, scoring='neg_mean_squared_error')
+print(MSE_CV)
+
+tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz2.dot",filled = True, feature_names=fn)
+# %%
+BUZ=sns.scatterplot(ytest_buz,price_pred_buz)
+# %%
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=7)
+knn.fit(xtrain_econ,ytrain_econ)
+knn_price_pred_econ = knn.predict(x_Air_econ)
+print(knn.score(x_Air_econ,y_Air_econ))
+print('R2 Value:',r2_score(ytrain_econ, knn.predict(xtrain_econ)))
+
+# %%
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=7)
+knn.fit(xtrain_buz,ytrain_buz)
+knn_price_pred_buz = knn.predict(x_Air_buz)
+print(knn.score(x_Air_buz,y_Air_buz))
+print('R2 Value:',r2_score(ytrain_buz, knn.predict(xtrain_buz)))
+
+
+#%%
+
+# %%
+number_of_observations=50
+
+x_ax = range(len(ytest_econ[:number_of_observations]))
+
+plt.plot(x_ax, ytest_econ[:number_of_observations], label="original")
+
+plt.plot(x_ax, price_pred_econ[:number_of_observations], label="predicted")
+
+plt.title("Flight Price test and predicted data")
+
+plt.xlabel('Observation Number')
+
+plt.ylabel('Price')
+
+plt.legend()
+
+plt.show()
