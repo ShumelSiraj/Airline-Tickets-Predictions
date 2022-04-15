@@ -86,6 +86,9 @@ econ_source=df_source[df_source['class']=='Economy']
 
 buz=df[df['class']==0]
 buz_source=df_source[df_source['class']=='Business']
+#%%
+sns.boxplot(x="class", y="price", data=df, hue='airline')
+
 # %% scatterplots for each airline for different number of stops
 
 # Economy
