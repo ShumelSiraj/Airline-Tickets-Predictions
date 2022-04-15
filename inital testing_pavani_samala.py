@@ -105,6 +105,20 @@ ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
 
 # Business
+fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+plt.xlim(0, 55)
+fig1.suptitle("Airline: Vistara", fontsize=60)
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=buz[buz['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax1.set_title("0 stops", fontsize=30)
+ax1.set_ylim(1, 40000)
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=buz[buz['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax2.set_title("1 stop", fontsize=30)
+ax2.set_ylim(1, 40000)
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax3.set_title("2 or more stops", fontsize=30)
+ax3.set_ylim(1, 40000)
 
 
 # %% linear model for economy class tickets
