@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 #%% reading in data 
 df = pd.read_csv (r'C:\Users\LOKESHCHOWDARY\Desktop\mining project\Clean_Dataset.csv') 
-
+busniess = pd.read_csv (r'C:\Users\LOKESHCHOWDARY\Desktop\mining project\business.csv') 
+economy=pd.read_csv (r'C:\Users\LOKESHCHOWDARY\Desktop\mining project\economy.csv') 
 # %%
 plt.hist(df['duration'])
 plt.xlabel('duration')
@@ -25,15 +26,72 @@ plt.show()
 # %%
 sns.heatmap(df.corr(),annot=True)
 plt.show()
-
+df.plot.bar(x='class',y='price')
+plt.show()
 #Economy class vs Business class
 # %%
 sns.boxplot(x='class',y='price',data=df)
 plt.show()
 # %%
-busniess=df[df['class']=='Business']
-economy=df[df['class']=='Economy']
-
 sns.stripplot(data=df, x='class',y='price', dodge='true',hue='airline', jitter=.5, palette='rocket')
 plt.show()
+#%%
+sns.boxplot(x='airline',y='price',data=busniess)
+plt.show()
+# %%
+#
+sns.boxplot(x='airline',y='price',data=busniess)
+plt.show()
+#%%
+df= pd.read_csv("Clean_Dataset.csv")
+del df['Unnamed: 0']
+
+df_source= pd.read_csv("Clean_Dataset.csv")
+del df_source['Unnamed: 0']
+
+df['class'].replace(['Economy', 'Business'], [0, 1], inplace=True)
+
+df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
+
+econ=df[df['class']==0]
+econ_source=df_source[df_source['class']=='Economy']
+
+buz=df[df['class']==1]
+buz_source=df_source[df_source['class']=='Business']
+
+
+#%% scatterplots for each airline for different number of stops
+
+# Business for Air_India
+fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+plt.xlim(0, 55)
+fig1.suptitle("Airline: Air_India", fontsize=60)
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=buz[buz['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax1.set_title("0 stops", fontsize=30)
+ax1.set_ylim(1, 40000)
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=buz[buz['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax2.set_title("1 stop", fontsize=30)
+ax2.set_ylim(1, 40000)
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax3.set_title("2 or more stops", fontsize=30)
+ax3.set_ylim(1, 40000)
+
+# Business for Vistara
+fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+plt.xlim(0, 55)
+fig1.suptitle("Airline: Vistara", fontsize=60)
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=buz[buz['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax1.set_title("0 stops", fontsize=30)
+ax1.set_ylim(1, 40000)
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=buz[buz['stops']==1],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax2.set_title("1 stop", fontsize=30)
+ax2.set_ylim(1, 40000)
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],
+scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax3.set_title("2 or more stops", fontsize=30)
+ax3.set_ylim(1, 40000)
+
 # %%
