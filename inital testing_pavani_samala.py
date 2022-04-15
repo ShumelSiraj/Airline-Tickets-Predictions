@@ -137,3 +137,46 @@ model_buz_3 = ols(formula='price ~ duration * stops * Coming_up', data=buz_sourc
 model_buz_3_Fit = model_buz_3.fit()
 print(model_buz_3_Fit.summary())
 # %%
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import mean_squared_error as MSE
+from sklearn.metrics import r2_score
+from sklearn import tree
+#%%
+x_Air=econ[['stops', 'duration', 'days_left']]
+y_Air=econ['price']
+xtrain, xtest, ytrain, ytest = train_test_split(x_Air, y_Air, test_size=0.2,random_state=1)
+
+air_tree = DecisionTreeRegressor(max_depth=4, min_samples_leaf=0.1,random_state=1)
+
+air_tree.fit(xtrain, ytrain)
+price_pred = air_tree.predict(xtest)
+
+mse = MSE(ytest, price_pred)
+print(mse** (.5))
+# %%
+x_Air=econ[['stops', 'duration', 'days_left']]
+y_Air=econ['price']
+xtrain, xtest, ytrain, ytest = train_test_split(x_Air, y_Air, test_size=0.2,random_state=1)
+
+air_tree = DecisionTreeRegressor(max_depth=4, min_samples_leaf=0.1,random_state=44)
+
+plane=air_tree.fit(xtrain, ytrain)
+price_pred = air_tree.predict(xtest)
+
+fn=['stops','duration','days_left']
+tree.plot_tree(plane,feature_names=fn)
+
+print("The mean square error is:", MSE(ytest, price_pred))
+print("The root mean square error is:", mse** (.5))
+print("The r square value is:", r2_score(ytest,price_pred))
+
+
+MSE_CV = - cross_val_score(air_tree, xtrain, ytrain, cv= 10, scoring='neg_mean_squared_error')
+print(MSE_CV)
+# %%
+plt.savefig('out.pdf')
+# %%
+#tree.export_graphviz(air_tree,out_file="tree.dot",filled = True)
+# %%
