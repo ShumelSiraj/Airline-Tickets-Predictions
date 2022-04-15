@@ -91,7 +91,7 @@ buz_source=df_source[df_source['class']=='Business']
 # Economy
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
-fig1.suptitle("Airline: Air_India", fontsize=60)
+fig1.suptitle("Scatterplot for Economy Class", fontsize=60)
 ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax1.set_title("0 stops", fontsize=30)
 ax1.set_ylim(1, 40000)
