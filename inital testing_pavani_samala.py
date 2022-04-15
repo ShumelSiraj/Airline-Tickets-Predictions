@@ -158,7 +158,7 @@ fn=['stops','duration','days_left']
 tree.plot_tree(plane,feature_names=fn)
 
 print("The mean square error is:", MSE(ytest, price_pred))
-print("The root mean square error is:", mse** (.5))
+print("The root mean square error is:", MSE(ytest, price_pred)** .5)
 print("The r square value is:", r2_score(ytest,price_pred))
 
 
