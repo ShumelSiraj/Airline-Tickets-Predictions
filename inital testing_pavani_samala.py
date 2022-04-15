@@ -139,7 +139,6 @@ print(model_buz_3_Fit.summary())
 # %%
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import mean_squared_error as MSE
 from sklearn.metrics import r2_score
@@ -166,11 +165,17 @@ print("The r square value is:", r2_score(ytest,price_pred))
 MSE_CV = - cross_val_score(air_tree, xtrain, ytrain, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 # %%
-plt.savefig('out.pdf')
+tree.export_graphviz(air_tree,out_file="tree.dot",filled = True)
 # %%
-#tree.export_graphviz(air_tree,out_file="tree.dot",filled = True)
+sns.scatterplot(ytest,price_pred)
 # %%
-x_ax = range(len(ytest))
-plt.plot(x_ax, ytest, label="original")
-plt.plot(x_ax, price_pred, label="predicted")
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=20)
+knn.fit(xtrain,ytrain)
+Price_pred = knn.predict(x_Air)
+print(knn.score(x_Air,y_Air))
+
+
+# %%
+
 # %%
