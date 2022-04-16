@@ -51,12 +51,12 @@ buz=df[df['class']==1]
 buz_source=df_source[df_source['class']=='Business']
 
 
-#%% scatterplots for each airline for different number of stops
+#%% scatterplots for business class
 
-# Business for Air_India
+# Business 
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
-fig1.suptitle("Airline: Air_India", fontsize=60)
+fig1.suptitle("sctterplot for business class", fontsize=60)
 ax1=sns.regplot( ax=ax1, x="duration", y="price", data=buz[buz['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax1.set_title("0 stops", fontsize=30)
 ax1.set_ylim(1, 40000)
