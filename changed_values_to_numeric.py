@@ -51,18 +51,11 @@ df['destination_city'].replace(["Mumbai", "Delhi", "Bangalore", "Kolkata", "Hyde
 
 #%%
 df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
-# %%
-
-corr = df.corr()
-ax1 = sns.heatmap(corr, cbar=0, linewidths=2,vmax=1, vmin=0, square=True, cmap='Blues')
-plt.title("correlation of all the variables")
-plt.show()
-# %%
 
 
 # %%
 print("giving proper heading name to columns world 1")
-df = df.rename(columns={'airline': 'Airline', 'flight': 'Flight','source_city':'Source_city','departure_time' : 'Departure_Time','stops':'Stops','arrival_time':'Arrival_time','destination_city':'Destination_City', 'class': 'Class', 'duration': 'Duration','days_left':'Days_left','price' : 'Ticket_Price'})
+df = df.rename(columns={'airline': 'Airline', 'flight': 'Flight','source_city':'Source_City','departure_time' : 'Departure_Time','stops':'Stops','arrival_time':'Arrival_Time','destination_city':'Destination_City', 'class': 'Class', 'duration': 'Duration','days_left':'Days_Left','price' : 'Price'})
 df
 #%%
 df.to_csv("Final_Dataset.csv")
