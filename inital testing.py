@@ -23,11 +23,8 @@ for value in df_source["days_left"]:
         coming_up.append("NA")   
 df_source['Coming_up'] = pd.Series(coming_up)   
 print(df_source)
-<<<<<<< HEAD
-=======
 
 
->>>>>>> main
 #%%
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']

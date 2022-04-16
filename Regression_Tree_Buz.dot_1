@@ -1,0 +1,36 @@
+digraph Tree {
+node [shape=box, style="filled", color="black"] ;
+0 [label="duration <= 5.125\nmse = 167836040.457\nsamples = 74789\nvalue = 52549.428", fillcolor="#eb9d64"] ;
+1 [label="mse = 87640901.135\nsamples = 7552\nvalue = 29997.289", fillcolor="#ffffff"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="duration <= 16.29\nmse = 113301834.268\nsamples = 67237\nvalue = 55082.464", fillcolor="#e89253"] ;
+0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+3 [label="days_left <= 11.5\nmse = 113409205.894\nsamples = 44140\nvalue = 56268.508", fillcolor="#e78c4b"] ;
+2 -> 3 ;
+4 [label="mse = 154213175.807\nsamples = 8187\nvalue = 58886.4", fillcolor="#e58139"] ;
+3 -> 4 ;
+5 [label="duration <= 8.46\nmse = 102201594.544\nsamples = 35953\nvalue = 55672.377", fillcolor="#e88f4f"] ;
+3 -> 5 ;
+6 [label="mse = 81460073.342\nsamples = 8243\nvalue = 54101.952", fillcolor="#e9965a"] ;
+5 -> 6 ;
+7 [label="duration <= 11.125\nmse = 107419775.323\nsamples = 27710\nvalue = 56139.537", fillcolor="#e78d4c"] ;
+5 -> 7 ;
+8 [label="mse = 122272733.489\nsamples = 7722\nvalue = 57167.189", fillcolor="#e78845"] ;
+7 -> 8 ;
+9 [label="duration <= 13.71\nmse = 101115991.899\nsamples = 19988\nvalue = 55742.523", fillcolor="#e88f4f"] ;
+7 -> 9 ;
+10 [label="mse = 103648687.523\nsamples = 10676\nvalue = 55250.623", fillcolor="#e89152"] ;
+9 -> 10 ;
+11 [label="mse = 97616863.179\nsamples = 9312\nvalue = 56306.475", fillcolor="#e78c4b"] ;
+9 -> 11 ;
+12 [label="days_left <= 17.5\nmse = 105270799.084\nsamples = 23097\nvalue = 52815.85", fillcolor="#ea9b63"] ;
+2 -> 12 ;
+13 [label="mse = 136135571.533\nsamples = 7924\nvalue = 54720.479", fillcolor="#e99356"] ;
+12 -> 13 ;
+14 [label="days_left <= 33.5\nmse = 86267990.325\nsamples = 15173\nvalue = 51821.17", fillcolor="#eba069"] ;
+12 -> 14 ;
+15 [label="mse = 89241151.555\nsamples = 7683\nvalue = 51858.761", fillcolor="#eba069"] ;
+14 -> 15 ;
+16 [label="mse = 83215281.339\nsamples = 7490\nvalue = 51782.611", fillcolor="#eba06a"] ;
+14 -> 16 ;
+}
