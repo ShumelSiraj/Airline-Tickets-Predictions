@@ -17,9 +17,7 @@ for value in df_source["days_left"]:
     if 15 <= value <= 35:
         coming_up.append("Far Away")
     if value <= 36:
-        coming_up.append("Very Far Away")
-    else:
-        coming_up.append("NA")   
+        coming_up.append("Very Far Away")  
 df_source['Coming_up'] = pd.Series(coming_up)   
 print(df_source)
 
