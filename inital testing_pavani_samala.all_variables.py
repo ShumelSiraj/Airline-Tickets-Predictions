@@ -107,33 +107,33 @@ ax3.set_ylim(1, 40000)
 # Business
 
 
-# %% linear model for economy class tickets
+# %% linear model for economy class tickets (set 1)
 
 model_econ_1 = ols(formula='price ~ duration', data=econ)
 model_econ_1_Fit = model_econ_1.fit()
 print(model_econ_1_Fit.summary())
 
-model_econ_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=econ_source)
+model_econ_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=econ)
 model_econ_2_Fit = model_econ_2.fit()
 print(model_econ_2_Fit.summary())
 
-model_econ_3 = ols(formula='price ~ duration * stops * Coming_up', data=econ_source)
+model_econ_3 = ols(formula='price ~ duration * stops * days_left', data=econ)
 model_econ_3_Fit = model_econ_3.fit()
 print(model_econ_3_Fit.summary())
 
 
 
-#%% linear model for business class tickets
+#%% linear model for business class tickets (set 1)
 
 model_buz_1 = ols(formula='price ~ duration', data=buz)
 model_buz_1_Fit = model_buz_1.fit()
 print(model_buz_1_Fit.summary())
 
-model_buz_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=buz_source)
+model_buz_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=buz)
 model_buz_2_Fit = model_buz_2.fit()
 print(model_buz_2_Fit.summary())
 
-model_buz_3 = ols(formula='price ~ duration * stops * days_left', data=buz_source)
+model_buz_3 = ols(formula='price ~ duration * stops * days_left', data=buz)
 model_buz_3_Fit = model_buz_3.fit()
 print(model_buz_3_Fit.summary())
 # %%
@@ -144,7 +144,7 @@ from sklearn.metrics import mean_squared_error as MSE
 from sklearn.metrics import r2_score
 from sklearn import tree
 
-# %% Regression Tree for Economy Class
+# %% Regression Tree for Economy Class (set 1)
 x_Air_econ=econ[['stops', 'duration', 'days_left']]
 y_Air_econ=econ['price']
 xtrain_econ, xtest_econ, ytrain_econ, ytest_econ = train_test_split(x_Air_econ, y_Air_econ, test_size=0.2,random_state=1)
@@ -176,14 +176,13 @@ plt.xlabel('Observation Number')
 plt.ylabel('Price')
 plt.legend()
 plt.show()
-#%%
 
-# %% Regression Tree for Business Class
+# %% Regression Tree for Business Class (set 1)
 x_Air_buz=buz[['stops', 'duration', 'days_left']]
 y_Air_buz=buz['price']
 xtrain_buz, xtest_buz, ytrain_buz, ytest_buz = train_test_split(x_Air_buz, y_Air_buz, test_size=0.2,random_state=1)
 
-air_tree_buz = DecisionTreeRegressor(max_depth=8, min_samples_leaf=0.1,random_state=44)
+air_tree_buz = DecisionTreeRegressor(max_depth=10, min_samples_leaf=1,random_state=44)
 
 plane=air_tree_buz.fit(xtrain_buz, ytrain_buz)
 price_pred_buz = air_tree_buz.predict(xtest_buz)
@@ -200,6 +199,7 @@ MSE_CV = - cross_val_score(air_tree_buz, xtrain_buz, ytrain_buz, cv= 10, scoring
 print(MSE_CV)
 
 tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz.dot_1",filled = True, feature_names=fn)
+
 # %%
 number_of_observations=50
 x_ax = range(len(ytest_buz[:number_of_observations]))
@@ -226,17 +226,17 @@ knn_price_pred_econ = knn.predict(xtest_buz)
 print(knn.score(xtest_buz,ytest_buz))
 print('R2 Value:',r2_score(ytest_buz, knn_price_pred_econ))
 # %%
-# %% linear model for economy class tickets
+# %% linear model for economy class tickets (set 2)
 
 model_econ_1 = ols(formula='price ~ C(stops)', data=econ)
 model_econ_1_Fit = model_econ_1.fit()
 print(model_econ_1_Fit.summary())
 
-model_econ_2 = ols(formula='price ~ C(stops) * C(source_city)', data=econ_source)
+model_econ_2 = ols(formula='price ~ C(stops) * days_left* C(source_city)', data=econ)
 model_econ_2_Fit = model_econ_2.fit()
 print(model_econ_2_Fit.summary())
 
-model_econ_3 = ols(formula='price ~  C(stops) * C(source_city) * C(destination_city)', data=econ_source)
+model_econ_3 = ols(formula='price ~  C(stops) * days_left * C(source_city) * C(destination_city)', data=econ)
 model_econ_3_Fit = model_econ_3.fit()
 print(model_econ_3_Fit.summary())
 
@@ -265,7 +265,7 @@ air_tree_econ = DecisionTreeRegressor(max_depth=8, min_samples_leaf=0.1,random_s
 plane=air_tree_econ.fit(xtrain_econ, ytrain_econ)
 price_pred_econ = air_tree_econ.predict(xtest_econ)
 
-fn=['stops', 'source_city', 'destination_city']
+fn=['stops','duration','days_left','source_city','destination_city']
 tree.plot_tree(plane,feature_names=fn)
 
 print("The mean square error is:", MSE(ytest_econ, price_pred_econ))
