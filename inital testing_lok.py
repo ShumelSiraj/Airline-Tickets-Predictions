@@ -68,3 +68,20 @@ ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
+#%%
+df_dummy= df.copy(deep=True)
+# %%
+df_dummy.days_left = df_dummy.days_left.astype('category')
+# %%
+#days_left(categorical data) vs price 
+sns.barplot(x = 'days_left',
+            y = 'price',
+            data = df_dummy)
+plt.show()
+# %%
+#days_left(numerical data) vs price
+sns.barplot(x = 'days_left',
+            y = 'price',
+            data = df)
+plt.show()
+# %%
