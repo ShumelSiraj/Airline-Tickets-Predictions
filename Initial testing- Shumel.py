@@ -150,6 +150,7 @@ gofirst=df[df['Airline']=='GO_FIRST']
 airasia=df[df['Airline']=='AirAsia']
 
 #%%
+#linear model
 from statsmodels.formula.api import ols
 modelprice = ols(formula='Price ~ + Duration + Days_Left + Stops + Class', data=df)
 print( type(modelprice) )
@@ -162,14 +163,71 @@ print(f' R-squared value of the model : {modelpricefit.rsquared}')
 
 
 #%%
+#linear model
 x=df.drop(['Price', "Airline", "Flight"], axis=1)
 y=df['Price']
 
-n = 5
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import cross_val_score
-knn = KNeighborsClassifier(n_neighbors=n) 
+
+from sklearn.neighbors import KNeighborsRegressor
+knn = KNeighborsRegressor() 
 knn.fit(x,y)
 
 print(knn.score(x,y))
-#%%  
+
+# %%
+##logit ModelS:
+
+from sklearn.ensemble import ExtraTreesRegressor
+x=df.drop(['Price', "Airline", "Flight"], axis=1)
+y=df['Price']
+
+selection = ExtraTreesRegressor()
+selection.fit(x, y)
+print(selection.feature_importances_)
+plt.figure(figsize = (12,8))
+feat_importances = pd.Series(selection.feature_importances_, index=x.columns)
+feat_importances.nlargest(30).plot(kind='barh')
+plt.show()
+
+#%%
+from sklearn.metrics import r2_score
+r2_scores = {}
+x=df.drop(['Price', "Airline", "Flight"], axis=1)
+y=df['Price']
+from sklearn.model_selection import train_test_split
+X_train,X_test,y_train,y_test = train_test_split(x,y,test_size=0.20,random_state=42)
+def fit_and_evaluate(prediction_model):
+    print(f'MODEL : {prediction_model}')
+    
+    model= prediction_model.fit(X_train,y_train)
+    print("Training score: {}".format(model.score(X_train,y_train)))
+    
+
+    predictions = model.predict(X_test)
+    
+    print('\n')
+    
+    r2score=r2_score(y_test,predictions) 
+    print("r2 score is: {}".format(r2score))
+    r2_scores[f'{prediction_model}'] = r2score
+          
+        
+#%%
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+# %%
+fit_and_evaluate(KNeighborsRegressor())
+# %%
+fit_and_evaluate(RandomForestRegressor())
+
+#%%
+fit_and_evaluate(DecisionTreeRegressor())
+#%%
+plt.figure(figsize=(12,6))
+scores = pd.DataFrame(r2_scores.items(),columns=['Model', 'Accuracy'])
+ax = sns.barplot(data=scores.sort_values("Accuracy", ascending = False),x='Model',y='Accuracy')
+ax.bar_label(ax.containers[0]);
+# %%
