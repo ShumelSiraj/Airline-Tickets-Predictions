@@ -167,7 +167,16 @@ print(MSE_CV)
 
 tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ_1.dot",filled = True, feature_names=fn)
 #%%
-ECON=sns.scatterplot(ytest_econ,price_pred_econ)
+number_of_observations=50
+x_ax = range(len(ytest_econ[:number_of_observations]))
+plt.plot(x_ax, ytest_econ[:number_of_observations], label="original")
+plt.plot(x_ax, price_pred_econ[:number_of_observations], label="predicted")
+plt.title("Flight Price test and predicted data")
+plt.xlabel('Observation Number')
+plt.ylabel('Price')
+plt.legend()
+plt.show()
+#%%
 
 # %% Regression Tree for Business Class
 x_Air_buz=buz[['stops', 'duration', 'days_left']]
@@ -192,7 +201,15 @@ print(MSE_CV)
 
 tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz.dot_1",filled = True, feature_names=fn)
 # %%
-BUZ=sns.scatterplot(ytest_buz,price_pred_buz)
+number_of_observations=50
+x_ax = range(len(ytest_buz[:number_of_observations]))
+plt.plot(x_ax, ytest_buz[:number_of_observations], label="original")
+plt.plot(x_ax, price_pred_buz[:number_of_observations], label="predicted")
+plt.title("Flight Price test and predicted data")
+plt.xlabel('Observation Number')
+plt.ylabel('Price')
+plt.legend()
+plt.show()
 # %%
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=7)
@@ -308,19 +325,11 @@ print('R2 Value:',r2_score(ytest_buz, knn_price_pred_econ))
 
 # %%
 number_of_observations=50
-
 x_ax = range(len(ytest_econ[:number_of_observations]))
-
 plt.plot(x_ax, ytest_econ[:number_of_observations], label="original")
-
 plt.plot(x_ax, price_pred_econ[:number_of_observations], label="predicted")
-
 plt.title("Flight Price test and predicted data")
-
 plt.xlabel('Observation Number')
-
 plt.ylabel('Price')
-
 plt.legend()
-
 plt.show()
