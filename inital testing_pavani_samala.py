@@ -197,17 +197,17 @@ BUZ=sns.scatterplot(ytest_buz,price_pred_buz)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=7)
 knn.fit(xtrain_econ,ytrain_econ)
-knn_price_pred_econ = knn.predict(x_Air_econ)
-print(knn.score(x_Air_econ,y_Air_econ))
-print('R2 Value:',r2_score(ytrain_econ, knn.predict(xtrain_econ)))
+knn_price_pred_econ = knn.predict(xtest_econ)
+print(knn.score(xtest_econ,ytest_econ))
+print('R2 Value:',r2_score(ytest_econ, knn_price_pred_econ))
 
 # %%
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=7)
 knn.fit(xtrain_buz,ytrain_buz)
-knn_price_pred_buz = knn.predict(x_Air_buz)
-print(knn.score(x_Air_buz,y_Air_buz))
-print('R2 Value:',r2_score(ytrain_buz, knn.predict(xtrain_buz)))
+knn_price_pred_econ = knn.predict(xtest_buz)
+print(knn.score(xtest_buz,ytest_buz))
+print('R2 Value:',r2_score(ytest_buz, knn_price_pred_econ))
 # %%
 # %% linear model for economy class tickets
 
@@ -219,7 +219,7 @@ model_econ_2 = ols(formula='price ~ C(stops) * C(source_city)', data=econ_source
 model_econ_2_Fit = model_econ_2.fit()
 print(model_econ_2_Fit.summary())
 
-model_econ_3 = ols(formula='price ~  C(stops) * C(source_city) * days_left', data=econ_source)
+model_econ_3 = ols(formula='price ~  C(stops) * C(source_city) * C(destination_city)', data=econ_source)
 model_econ_3_Fit = model_econ_3.fit()
 print(model_econ_3_Fit.summary())
 
@@ -235,7 +235,7 @@ model_buz_2 = ols(formula='price ~ C(stops) * C(source_city)', data=buz_source)
 model_buz_2_Fit = model_buz_2.fit()
 print(model_buz_2_Fit.summary())
 
-model_buz_3 = ols(formula='price ~ C(stops) * C(source_city) * days_left', data=buz_source)
+model_buz_3 = ols(formula='price ~ C(stops) * C(source_city) * C(destination_city)', data=buz_source)
 model_buz_3_Fit = model_buz_3.fit()
 print(model_buz_3_Fit.summary())
 # %% Regression Tree for Economy Class
@@ -291,17 +291,17 @@ BUZ=sns.scatterplot(ytest_buz,price_pred_buz)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=7)
 knn.fit(xtrain_econ,ytrain_econ)
-knn_price_pred_econ = knn.predict(x_Air_econ)
-print(knn.score(x_Air_econ,y_Air_econ))
-print('R2 Value:',r2_score(ytrain_econ, knn.predict(xtrain_econ)))
+knn_price_pred_econ = knn.predict(xtest_econ)
+print(knn.score(xtest_econ,ytest_econ))
+print('R2 Value:',r2_score(ytest_econ, knn_price_pred_econ))
 
 # %%
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=7)
 knn.fit(xtrain_buz,ytrain_buz)
-knn_price_pred_buz = knn.predict(x_Air_buz)
-print(knn.score(x_Air_buz,y_Air_buz))
-print('R2 Value:',r2_score(ytrain_buz, knn.predict(xtrain_buz)))
+knn_price_pred_econ = knn.predict(xtest_buz)
+print(knn.score(xtest_buz,ytest_buz))
+print('R2 Value:',r2_score(ytest_buz, knn_price_pred_econ))
 
 
 #%%
