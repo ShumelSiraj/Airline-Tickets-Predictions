@@ -73,5 +73,15 @@ df_dummy= df.copy(deep=True)
 # %%
 df_dummy.days_left = df_dummy.days_left.astype('category')
 # %%
-plt
+#days_left(categorical data) vs price 
+sns.barplot(x = 'days_left',
+            y = 'price',
+            data = df_dummy)
+plt.show()
+# %%
+#days_left(numerical data) vs price
+sns.barplot(x = 'days_left',
+            y = 'price',
+            data = df)
+plt.show()
 # %%
