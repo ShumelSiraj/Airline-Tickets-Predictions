@@ -36,10 +36,23 @@ plt.show()
 #%%
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
-
+#%%
 df_source= pd.read_csv("Clean_Dataset.csv")
 del df_source['Unnamed: 0']
-
+coming_up=[]
+for value in df_source["days_left"]:
+    if 0 <= value <= 7:
+        coming_up.append("Very Soon")
+    if 8 <= value <= 14:
+        coming_up.append("Soon")
+    if 15 <= value <= 35:
+        coming_up.append("Far Away")
+    if value <= 36:
+        coming_up.append("Very Far Away")
+    
+df_source['Coming_up'] = pd.Series(coming_up)   
+print(df_source)
+#%%
 df['class'].replace(['Economy', 'Business'], [0, 1], inplace=True)
 
 df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
@@ -74,9 +87,9 @@ df_dummy= df.copy(deep=True)
 df_dummy.days_left = df_dummy.days_left.astype('category')
 # %%
 #days_left(categorical data) vs price 
-sns.barplot(x = 'days_left',
+sns.barplot(x = 'Coming_up',
             y = 'price',
-            data = df_dummy)
+            data = df_source)
 plt.show()
 # %%
 #days_left(numerical data) vs price
