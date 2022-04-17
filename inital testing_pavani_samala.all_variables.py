@@ -212,7 +212,7 @@ plt.legend()
 plt.show()
 # %%
 from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=25)
+knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_econ,ytrain_econ)
 knn_price_pred_econ = knn.predict(xtest_econ)
 print(knn.score(xtest_econ,ytest_econ))
@@ -220,7 +220,7 @@ print('R2 Value:',r2_score(ytest_econ, knn_price_pred_econ))
 
 # %%
 from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=25)
+knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_buz,ytrain_buz)
 knn_price_pred_econ = knn.predict(xtest_buz)
 print(knn.score(xtest_buz,ytest_buz))
@@ -323,7 +323,7 @@ plt.legend()
 plt.show()
 # %%
 from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=25)
+knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_econ,ytrain_econ)
 knn_price_pred_econ = knn.predict(xtest_econ)
 print(knn.score(xtest_econ,ytest_econ))
@@ -331,7 +331,7 @@ print('R2 Value:',r2_score(ytest_econ, knn_price_pred_econ))
 
 # %%
 from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(n_neighbors=25)
+knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_buz,ytrain_buz)
 knn_price_pred_econ = knn.predict(xtest_buz)
 print(knn.score(xtest_buz,ytest_buz))
