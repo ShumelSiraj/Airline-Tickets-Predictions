@@ -108,7 +108,7 @@ ax3.set_ylim(1, 40000)
 
 
 
-# %% linear model for economy class tickets
+# %% linear model for economy class tickets (set 1)
 
 model_econ_1 = ols(formula='price ~ duration', data=econ)
 model_econ_1_Fit = model_econ_1.fit()
@@ -124,17 +124,26 @@ print(model_econ_3_Fit.summary())
 
 
 
-#%% linear model for business class tickets
+
+#%% linear model for business class tickets (set 1)
 
 model_buz_1 = ols(formula='price ~ duration', data=buz)
 model_buz_1_Fit = model_buz_1.fit()
 print(model_buz_1_Fit.summary())
 
-model_buz_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=buz_source)
+model_buz_2 = ols(formula='price ~ I(duration*duration) + (duration*stops)', data=buz)
 model_buz_2_Fit = model_buz_2.fit()
 print(model_buz_2_Fit.summary())
 
-model_buz_3 = ols(formula='price ~ duration * stops * Coming_up', data=buz_source)
+model_buz_3 = ols(formula='price ~ I(duration*duration) + (duration*stops) + days_left', data=buz)
 model_buz_3_Fit = model_buz_3.fit()
 print(model_buz_3_Fit.summary())
+# %%
+# %% 
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import mean_squared_error as MSE
+from sklearn.metrics import r2_score
+from sklearn import tree
 # %%
