@@ -29,7 +29,7 @@ plt.show()
 #Economy class vs Business class
 # %%
 sns.boxplot(x="class", y="price",
-                 data=df, palette="Set3")
+                 data=df, palette="rocket")
 # %%
 sns.stripplot(data=df, x='class',y='price', dodge='true',hue='airline', jitter=.5, palette='rocket')
 plt.show()
@@ -64,17 +64,19 @@ buz=df[df['class']==1]
 buz_source=df_source[df_source['class']=='Business']
 
 
-#%% scatterplots for business class
+#%%
+#Economy
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
 fig1.suptitle("Scatterplot for Economy Class", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"},font_scale = 2)
 ax1.set_title("0 stops", fontsize=30)
 ax1.set_ylim(1, 40000)
 ax2=sns.regplot( ax=ax2, x="duration", y="price", data=econ[econ['stops']==1],
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax2.set_title("1 stop", fontsize=30)
 ax2.set_ylim(1, 40000)
+ax3.set(font_scale = 2)
 ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
@@ -83,14 +85,20 @@ ax3.set_ylim(1, 40000)
 # Business 
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
-fig1.suptitle("sctterplot for business class", fontsize=60)
+fig1.suptitle("Scatterplot for Business Class", fontsize=60)
+
+# ax1.set(font_scale = 2)
 ax1=sns.regplot( ax=ax1, x="duration", y="price", data=buz[buz['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax1.set_title("0 stops", fontsize=30)
 ax1.set_ylim(1, 40000)
+
+#ax2.set(font_scale = 2)
 ax2=sns.regplot( ax=ax2, x="duration", y="price", data=buz[buz['stops']==1],
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax2.set_title("1 stop", fontsize=30)
 ax2.set_ylim(1, 40000)
+
+#ax3.set(font_scale = 2)
 ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],
 scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
@@ -112,8 +120,14 @@ sns.barplot(x = 'days_left',
             data = df)
 plt.show()
 # %%
-sns.set()
+palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "airline", data = df, kind="boxen", height = 6, aspect = 3)
 plt.show()
+#%%
+sns.boxplot(data=df, x='class',y='price', dodge='true',hue='airline', palette='rocket')
+plt.show()
 # %%
+palette = sns.color_palette("rocket")
+sns.catplot(y = "price", x = "class", data = df, hue='airline',kind="boxen", height = 6, aspect = 3)
+plt.show()
 # %%
