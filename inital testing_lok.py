@@ -113,6 +113,9 @@ plt.show()
 # %%
 palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "airline", data = df, kind="boxen", height = 6, aspect = 3)
+plt.title("Price vs Airlines",fontsize=30)
+plt.xlabel("class", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
 plt.show()
 #%%
 sns.boxplot(data=df, x='class',y='price', dodge='true',hue='airline', palette='rocket')
@@ -120,5 +123,8 @@ plt.show()
 # %%
 palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "class", data = df, hue='airline',kind="boxen", height = 6, aspect = 3)
+plt.title("Price based on Airlines and Class",fontsize=30)
+plt.xlabel("class", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
 plt.show()
 # %%
