@@ -4,6 +4,12 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.metrics import roc_curve, auc
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import accuracy_score
 #%% reading in data 
 df = pd.read_csv (r'C:\Users\LOKESHCHOWDARY\Desktop\mining project\Clean_Dataset.csv') 
 busniess = pd.read_csv (r'C:\Users\LOKESHCHOWDARY\Desktop\mining project\business.csv') 
@@ -128,3 +134,9 @@ plt.xlabel("class", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
 plt.show()
 # %%
+# Models
+x = df[['days_left','stops','duration']].values
+y = df['price'].values
+lab_enc = LabelEncoder()
+y = lab_enc.fit_transform(y)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=1)
