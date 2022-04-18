@@ -36,10 +36,23 @@ plt.show()
 #%%
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
-
+#%%
 df_source= pd.read_csv("Clean_Dataset.csv")
 del df_source['Unnamed: 0']
-
+coming_up=[]
+for value in df_source["days_left"]:
+    if 0 <= value <= 7:
+        coming_up.append("Very Soon")
+    if 8 <= value <= 14:
+        coming_up.append("Soon")
+    if 15 <= value <= 35:
+        coming_up.append("Far Away")
+    if value <= 36:
+        coming_up.append("Very Far Away")
+    
+df_source['Coming_up'] = pd.Series(coming_up)   
+print(df_source)
+#%%
 df['class'].replace(['Economy', 'Business'], [0, 1], inplace=True)
 
 df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
@@ -53,41 +66,32 @@ buz_source=df_source[df_source['class']=='Business']
 
 #%%
 #Economy
+sns.set(font_scale=4)
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
 fig1.suptitle("Scatterplot for Economy Class", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"},font_scale = 2)
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax1.set_title("0 stops", fontsize=30)
 ax1.set_ylim(1, 40000)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=econ[econ['stops']==1],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=econ[econ['stops']==1],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax2.set_title("1 stop", fontsize=30)
 ax2.set_ylim(1, 40000)
-ax3.set(font_scale = 2)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
 #%%
 # Business 
+sns.set(font_scale=4)
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
 fig1.suptitle("Scatterplot for Business Class", fontsize=60)
-
-# ax1.set(font_scale = 2)
 ax1=sns.regplot( ax=ax1, x="duration", y="price", data=buz[buz['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax1.set_title("0 stops", fontsize=30)
 ax1.set_ylim(1, 40000)
-
-#ax2.set(font_scale = 2)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=buz[buz['stops']==1],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=buz[buz['stops']==1],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax2.set_title("1 stop", fontsize=30)
 ax2.set_ylim(1, 40000)
-
-#ax3.set(font_scale = 2)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
 #%%
@@ -96,9 +100,9 @@ df_dummy= df.copy(deep=True)
 df_dummy.days_left = df_dummy.days_left.astype('category')
 # %%
 #days_left(categorical data) vs price 
-sns.barplot(x = 'days_left',
+sns.barplot(x = 'Coming_up',
             y = 'price',
-            data = df_dummy)
+            data = df_source)
 plt.show()
 # %%
 #days_left(numerical data) vs price
