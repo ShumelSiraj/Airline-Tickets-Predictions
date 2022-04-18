@@ -127,7 +127,19 @@ ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
 
 # Business
-
+sns.set(font_scale=4)
+fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+plt.xlim(0, 55)
+fig1.suptitle("Scatterplot for Economy Class", fontsize=60)
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax1.set_title("0 stops", fontsize=30)
+ax1.set_ylim(1, 40000)
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=econ[econ['stops']==1],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax2.set_title("1 stop", fontsize=30)
+ax2.set_ylim(1, 40000)
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax3.set_title("2 or more stops", fontsize=30)
+ax3.set_ylim(1, 40000)
 
 # %% linear model for economy class tickets
 
@@ -205,4 +217,8 @@ print(MSE_CV)
 plt.savefig('out.pdf')
 # %%
 #tree.export_graphviz(air_tree,out_file="tree.dot",filled = True)
+# %%
+pd.pivot_table
+econ_city=econ['source_city','destination_city','price']
+sns.heatmap(econ_city)
 # %%
