@@ -119,7 +119,7 @@ plt.show()
 # %%
 palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "airline", data = df, kind="boxen", height = 6, aspect = 3)
-plt.title("Price vs Airlines",fontsize=30)
+plt.title("Price for Airlines",fontsize=30)
 plt.xlabel("class", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
 plt.show()
