@@ -160,4 +160,10 @@ print("Accuracy score: ",accuracy_score(y_test, y_test_pred)*100)
 print ('Tree Depth:', rf1.get_depth())
 print ('Tree Leaves:', rf1.get_n_leaves())
 #%%
+from sklearn.linear_model import Lasso
 
+rf2 = Lasso(random_state=0)
+# Fit dt to the training set
+rf2.fit(x_train,y_train)
+y_test_pred = rf2.predict(x_test)
+print("coefficient of determination: ",r2_score(y_test, y_test_pred))
