@@ -135,8 +135,29 @@ plt.ylabel("price", fontsize = 30)
 plt.show()
 # %%
 # Models
-x = df[['days_left','stops','duration']].values
+x = df[['source_city','departure_time','arrival_time','days_left','destination_city','stops','duration']].values
 y = df['price'].values
-lab_enc = LabelEncoder()
-y = lab_enc.fit_transform(y)
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=1)
+class_le = LabelEncoder()
+y = class_le.fit_transform(y)
+x_train, x_test, y_train, y_test = train_test_split (x, y, test_size=0.3, random_state=1)
+#%%
+#Decision tree
+# Fit dt to the training set
+rf1 = DecisionTreeClassifier(criterion='entropy',random_state=0)
+# Fit dt to the training set
+rf1.fit(x_train,y_train)
+# y_train_pred = rf1.predict(x_train)
+y_test_pred = rf1.predict(x_test)
+y_pred_score = rf1.predict_proba(x_test)
+
+print('Decision Tree results')
+
+# Evaluate test-set accuracy
+print('test set evaluation: ')
+print("Accuracy score: ",accuracy_score(y_test, y_test_pred)*100)
+
+# Tree depth & leafs
+print ('Tree Depth:', rf1.get_depth())
+print ('Tree Leaves:', rf1.get_n_leaves())
+#%%
+
