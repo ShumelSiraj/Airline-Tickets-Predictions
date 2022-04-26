@@ -6,6 +6,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import stats
+from scipy.stats import shapiro
 import statsmodels.api as sm
 #%% reading csv as dataframe
 df= pd.read_csv("Clean_Dataset.csv")
@@ -30,16 +31,6 @@ df['destination_city'].replace(["Mumbai", "Delhi", "Bangalore", "Kolkata", "Hyde
 #stops
 df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
 
-
-# %%
-# print("giving proper heading name to columns world 1")
-# df = df.rename(columns={'airline': 'Airline', 'flight': 'Flight','source_city':'Source_City','departure_time' : 'Departure_Time','stops':'Stops','arrival_time':'Arrival_Time','destination_city':'Destination_City', 'class': 'Class', 'duration': 'Duration','days_left':'Days_Left','price' : 'Price'})
-# df
-# #%%
-# df.to_csv("Final_Dataset.csv")
-# #%%
-# df= pd.read_csv("Final_Dataset.csv")
-# del df['Unnamed: 0']
 #%% checking for inconsistancies in the df
 
 #Create a new function:
@@ -80,20 +71,7 @@ print("There is {} strongly correlated values greater than 0.1 with Price:\n{}".
 plt.figure(figsize=(9, 8))
 sns.distplot(df['price'], color='g', bins=100, hist_kws={'alpha': 0.4});
 
-#%%
-# #Now we'll try to find which features are strongly correlated with Price. We'll store them in a var called important_features_list. We'll reuse our df dataset to do so.
-# df_corr = df.corr()['price'][:-1] # -1 because the latest row is Price
-# # df_corr value > 0.5
-# important_feature_list = df_corr[abs(df_corr) > 0.5].sort_values(ascending=False)
-# print("There is {} strongly correlated values greater than 0.5 with Price:\n{}".format(len(important_feature_list), important_feature_list))
 
-
-# # df_corr value > 0.1
-# important_feature_list = df_corr[abs(df_corr) > 0.1].sort_values(ascending=False)
-# print("There is {} strongly correlated values greater than 0.1 with Price:\n{}".format(len(important_feature_list), important_feature_list))
-
-
-# #With this information we can see that the prices are skewed right and some outliers lies above ~80000. We will eventually want to get rid of the them to get a normal distribution of the independent variable (`Price`) for machine learning.
 #%% Numerical data distribution
 list(set(df.dtypes.tolist()))
 df_num = df.select_dtypes(include = ['float64', 'int64'])
@@ -102,10 +80,10 @@ df_num.head()
 df_num.hist(figsize=(16, 20), bins=50, xlabelsize=8, ylabelsize=8);
 
 
-#%%
-from scipy.stats import shapiro
-data = df(columns= ['source_city', 'departure_time', 'stops', 'arrival_time', 'destination_city', 'class', 'duration', 'days_left', 'price'])
-stats, p = shapiro(data)
+#%% THIS NEEDS TO BE FIXED
+# from scipy.stats import shapiro
+# data = df(columns= ['source_city', 'departure_time', 'stops', 'arrival_time', 'destination_city', 'class', 'duration', 'days_left', 'price'])
+# stats, p = shapiro(data)
 #%%
 #Checking the normality
 
@@ -155,20 +133,10 @@ stats.probplot(df['price'], dist='norm', plot=pylab)
 plt.title("Price")
 pylab.show()
   
+#%% subset based on class
+econ=df[df['class']==0]
+buz=df[df['class']==1]
 #%%
-# Because the length of the data for the economy and business is the same, we will divide the data and analyze it separately.
-businessdf = df[(df['Class'] == 1)]
-economydf = df[(df['Class'] == 0)]
-#%%
-# SCattrplot of price in respect to airline economy and business class
-sns.scatterplot('Airline', 'Price', data=economydf)
-sns.scatterplot('Airline', 'Price', data=businessdf)
-plt.legend(labels=["Economy Class","Business Class"])
-plt.show()
-#%%
-sns.relplot(x="Duration", y="Price", hue="Stops", sizes=(15, 200), data=businessdf);
-plt.title("Business Class Price With Respect To Duration And Stops.")  
+# Scatterplot
 
-sns.relplot(x="Duration", y="Price", hue="Stops", sizes=(15, 200), data=economydf);
-plt.title("Business Class Price with Respect to Duration and Stops.")  
 #%%
