@@ -134,6 +134,13 @@ plt.title("Price based on Airlines and Class",fontsize=30)
 plt.xlabel("class", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
 plt.show()
+#%%
+palette = sns.color_palette("rocket")
+sns.catplot(y = "price", x = "destination_city", data = df.sort_values("price", ascending = False), kind="box", height = 6, aspect = 3)
+plt.title("Price based on destination",fontsize=30)
+plt.xlabel("destination_city", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
+plt.show()  
 # %%
 # Models
 x = df[['source_city','departure_time','arrival_time','days_left','destination_city','stops','duration']].values
