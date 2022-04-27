@@ -83,15 +83,9 @@ plt.xlabel("class", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
 plt.show()
 #%%
-df['class'].replace(['Economy', 'Business'], [0, 1], inplace=True)
-
-df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
-
+#subset based on class
 econ=df[df['class']==0]
-econ_source=df[df['class']=='Economy']
-
 buz=df[df['class']==1]
-buz_source=df[df['class']=='Business']
 #%%
 #Price vs duration(Economy class)
 sns.set(font_scale=4)
@@ -125,8 +119,6 @@ ax3.set_ylim(1, 40000)
 #%% Ticket Price Distribution
 plt.figure(figsize=(9, 8))
 sns.distplot(df['price'], color='g', bins=100, hist_kws={'alpha': 0.4});
-
-
 #%% Numerical data distribution
 list(set(df.dtypes.tolist()))
 df_num = df.select_dtypes(include = ['float64', 'int64'])
@@ -182,11 +174,5 @@ pylab.show()
 stats.probplot(df['price'], dist='norm', plot=pylab)
 plt.title("Price")
 pylab.show()
-  
-#%% subset based on class
-econ=df[df['class']==0]
-buz=df[df['class']==1]
 #%%
 # Scatterplot
-
-#%%
