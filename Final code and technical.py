@@ -64,7 +64,38 @@ corr.style.background_gradient(cmap='plasma')
 df_corr = df.corr()['price'][:-1]
 important_feature_list = df_corr[abs(df_corr) > 0.1].sort_values(ascending=False)
 print("There is {} strongly correlated values greater than 0.1 with Price:\n{}".format(len(important_feature_list), important_feature_list))
+#%%
+#Comparing price distribution for different airlines
+palette = sns.color_palette("rocket")
+sns.catplot(y = "price", x = "airline", data = df, kind="boxen", height = 6, aspect = 3)
+plt.title("Price for Airlines",fontsize=30)
+plt.xlabel("Airline", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
+plt.show()
 
+#%%
+#price comparision based on airlines and classes
+palette = sns.color_palette("rocket")
+sns.catplot(y = "price", x = "class", data = df, hue='airline',kind="boxen", height = 6, aspect = 3)
+plt.title("Price based on Airlines and Class",fontsize=30)
+plt.xlabel("class", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
+plt.show()
+#%%
+#
+sns.set(font_scale=4)
+fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
+plt.xlim(0, 55)
+fig1.suptitle("Scatterplot for Economy Class", fontsize=60)
+ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax1.set_title("0 stops", fontsize=30)
+ax1.set_ylim(1, 40000)
+ax2=sns.regplot( ax=ax2, x="duration", y="price", data=econ[econ['stops']==1],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax2.set_title("1 stop", fontsize=30)
+ax2.set_ylim(1, 40000)
+ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],scatter_kws={"color": "black"}, line_kws={"color": "red"})
+ax3.set_title("2 or more stops", fontsize=30)
+ax3.set_ylim(1, 40000)
 #%% Ticket Price Distribution
 plt.figure(figsize=(9, 8))
 sns.distplot(df['price'], color='g', bins=100, hist_kws={'alpha': 0.4});
