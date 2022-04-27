@@ -117,6 +117,7 @@ sns.barplot(x = 'days_left',
             data = df)
 plt.show()
 # %%
+#Comparing price distribution for different airlines
 palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "airline", data = df, kind="boxen", height = 6, aspect = 3)
 plt.title("Price for Airlines",fontsize=30)
