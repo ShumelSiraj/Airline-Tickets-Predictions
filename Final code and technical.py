@@ -59,13 +59,11 @@ print(df.describe())
 #%% correlation map
 corr = df.corr()
 corr.style.background_gradient(cmap='plasma')
-
+#%%
 # df_corr value > 0.1
 df_corr = df.corr()['price'][:-1]
 important_feature_list = df_corr[abs(df_corr) > 0.1].sort_values(ascending=False)
 print("There is {} strongly correlated values greater than 0.1 with Price:\n{}".format(len(important_feature_list), important_feature_list))
-
-
 
 #%% Ticket Price Distribution
 plt.figure(figsize=(9, 8))
@@ -79,11 +77,6 @@ df_num.head()
 
 df_num.hist(figsize=(16, 20), bins=50, xlabelsize=8, ylabelsize=8);
 
-
-#%% THIS NEEDS TO BE FIXED
-# from scipy.stats import shapiro
-# data = df(columns= ['source_city', 'departure_time', 'stops', 'arrival_time', 'destination_city', 'class', 'duration', 'days_left', 'price'])
-# stats, p = shapiro(data)
 #%%
 #Checking the normality
 
