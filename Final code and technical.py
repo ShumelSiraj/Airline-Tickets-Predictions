@@ -140,7 +140,7 @@ plt.xlabel("Airline")
 plt.ylabel("Price")
 plt.show()
 
-#price comparision based on airlines and classes
+#Comparing price distribution for different airlines and classes
 palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "class", data = df, hue='airline',kind="boxen", height = 5, aspect = 2)
 plt.title("Price based on Airlines and Class")
@@ -163,7 +163,7 @@ ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],sc
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
 
-#Price vs duration(Business class)
+#Price vs Duration(Business class)
 sns.set(font_scale=4)
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
