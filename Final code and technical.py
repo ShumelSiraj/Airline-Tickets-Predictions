@@ -64,9 +64,23 @@ corr.style.background_gradient(cmap='plasma')
 df_corr = df.corr()['price'][:-1]
 important_feature_list = df_corr[abs(df_corr) > 0.1].sort_values(ascending=False)
 print("There is {} strongly correlated values greater than 0.1 with Price:\n{}".format(len(important_feature_list), important_feature_list))
+#%%
+#Comparing price distribution for different airlines
+palette = sns.color_palette("rocket")
+sns.catplot(y = "price", x = "airline", data = df, kind="boxen", height = 6, aspect = 3)
+plt.title("Price for Airlines",fontsize=30)
+plt.xlabel("Airline", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
+plt.show()
 
-
-
+#%%
+#price comparision based on airlines and classes
+palette = sns.color_palette("rocket")
+sns.catplot(y = "price", x = "class", data = df, hue='airline',kind="boxen", height = 6, aspect = 3)
+plt.title("Price based on Airlines and Class",fontsize=30)
+plt.xlabel("class", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
+plt.show()
 #%% Ticket Price Distribution
 plt.figure(figsize=(9, 8))
 sns.distplot(df['price'], color='g', bins=100, hist_kws={'alpha': 0.4});
