@@ -210,7 +210,7 @@ plt.xlabel('Observation Number')
 plt.ylabel('Price')
 plt.legend()
 plt.show()
-# %%
+# %% knn model for economy class tickets (set 1)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_econ,ytrain_econ)
@@ -218,7 +218,7 @@ knn_price_pred_econ = knn.predict(xtest_econ)
 print(knn.score(xtest_econ,ytest_econ))
 print('R2 Value:',r2_score(ytest_econ, knn_price_pred_econ))
 
-# %%
+# %% knn model for business class tickets (set 1)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_buz,ytrain_buz)
@@ -226,7 +226,7 @@ knn_price_pred_econ = knn.predict(xtest_buz)
 print(knn.score(xtest_buz,ytest_buz))
 print('R2 Value:',r2_score(ytest_buz, knn_price_pred_econ))
 # %%
-# %% linear model for economy class tickets (set 2)
+# %% linear model for economy class tickets (set 1)
 
 model_econ_1 = ols(formula='price ~ C(stops)', data=econ)
 model_econ_1_Fit = model_econ_1.fit()
@@ -321,7 +321,7 @@ plt.xlabel('Observation Number')
 plt.ylabel('Price')
 plt.legend()
 plt.show()
-# %%
+# %% knn model for economy class tickets (set 2)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_econ,ytrain_econ)
@@ -329,7 +329,7 @@ knn_price_pred_econ = knn.predict(xtest_econ)
 print(knn.score(xtest_econ,ytest_econ))
 print('R2 Value:',r2_score(ytest_econ, knn_price_pred_econ))
 
-# %%
+# %% knn model for business class tickets (set 2)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_buz,ytrain_buz)
