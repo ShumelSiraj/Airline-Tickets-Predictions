@@ -112,7 +112,8 @@ sns.barplot(x = 'Coming_up',
 plt.show()
 # %%
 #days_left(numerical data) vs price
-sns.barplot(x = 'days_left',
+df['days'] = pd.cut(df['days_left'],list(range(0,49,6)))
+sns.barplot(x = 'days',
             y = 'price',
             data = df)
 plt.show()
