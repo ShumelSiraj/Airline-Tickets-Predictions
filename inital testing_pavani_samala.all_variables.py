@@ -226,7 +226,7 @@ knn_price_pred_econ = knn.predict(xtest_buz)
 print(knn.score(xtest_buz,ytest_buz))
 print('R2 Value:',r2_score(ytest_buz, knn_price_pred_econ))
 # %%
-# %% linear model for economy class tickets (set 1)
+# %% linear model for economy class tickets (set 2)
 
 model_econ_1 = ols(formula='price ~ C(stops)', data=econ)
 model_econ_1_Fit = model_econ_1.fit()
@@ -236,7 +236,7 @@ model_econ_2 = ols(formula='price ~ C(stops) * days_left * C(source_city)', data
 model_econ_2_Fit = model_econ_2.fit()
 print(model_econ_2_Fit.summary())
 
-model_econ_3 = ols(formula='price ~  C(stops) + days_left + duration + C(source_city) + C(destination_city)', data=econ)
+model_econ_3 = ols(formula='price ~  C(stops) * days_left + duration * C(source_city) * C(destination_city)', data=econ)
 model_econ_3_Fit = model_econ_3.fit()
 print(model_econ_3_Fit.summary())
 
@@ -252,7 +252,7 @@ model_buz_2 = ols(formula='price ~ C(stops) * days_left * C(source_city)', data=
 model_buz_2_Fit = model_buz_2.fit()
 print(model_buz_2_Fit.summary())
 
-model_buz_3 = ols(formula='price ~  C(stops) + days_left + duration + C(source_city) + C(destination_city)', data=buz)
+model_buz_3 = ols(formula='price ~  C(stops) * days_left + duration * C(source_city) * C(destination_city)', data=buz)
 model_buz_3_Fit = model_buz_3.fit()
 print(model_buz_3_Fit.summary())
 
