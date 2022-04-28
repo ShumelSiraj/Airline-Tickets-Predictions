@@ -131,6 +131,8 @@ pylab.show()
 stats.probplot(df['price'], dist='norm', plot=pylab)
 plt.title("Price")
 pylab.show()
+#%%
+# Scatterplot
 #%% Catplot
 #Comparing price distribution for different airlines
 palette = sns.color_palette("rocket")
@@ -146,6 +148,31 @@ sns.catplot(y = "price", x = "class", data = df, hue='airline',kind="boxen", hei
 plt.title("Price based on Airlines and Class")
 plt.xlabel("Class")
 plt.ylabel("Price")
+plt.show()
+#%%
+# Compare Source_city and Price
+palette = sns.color_palette("rocket")
+sns.catplot(y = "price", x = "source_city", data = df.sort_values("price", ascending = False), kind="box", height = 6, aspect = 3)
+plt.title("Price based on sorce",fontsize=30)
+plt.xlabel("source_city", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
+plt.show()  
+# We can see outliers in delhi while the other cities not too different
+
+# Compare destination_city and Price
+palette = sns.color_palette("rocket")
+sns.catplot(y = "price", x = "destination_city", data = df.sort_values("price", ascending = False), kind="box", height = 6, aspect = 3)
+plt.title("Price based on destination",fontsize=30)
+plt.xlabel("destination_city", fontsize = 30)
+plt.ylabel("price", fontsize = 30)
+plt.show()  
+# We can see outliers all destinations cities except kolkata
+#%% barplot
+#days_left(numerical data) vs price
+df['days'] = pd.cut(df['days_left'],list(range(0,49,6)))
+sns.barplot(x = 'days',
+            y = 'price',
+            data = df)
 plt.show()
 #%% Regplot
 #Price vs Duration(Economy class)
@@ -177,4 +204,5 @@ ax2.set_ylim(1, 40000)
 ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
+#%%
 #%%
