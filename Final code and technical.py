@@ -137,7 +137,7 @@ pylab.show()
 #%% Catplot
 #Comparing price distribution for different airlines
 palette = sns.color_palette("rocket")
-sns.catplot(y = "price", x = "airline", data = df, hue ='airline', kind="boxen",height = 5, aspect = 2)
+sns.catplot(y = "price", x = "airline", data = df, hue ='airline', kind="box",height = 5, aspect = 2)
 plt.title("Price based on Airlines")
 plt.xlabel("Airline")
 plt.ylabel("Price")
@@ -145,7 +145,7 @@ plt.show()
 
 #Comparing price distribution for different airlines and classes
 palette = sns.color_palette("rocket")
-sns.catplot(y = "price", x = "class", data = df, hue='airline',kind="boxen", height = 5, aspect = 2)
+sns.catplot(y = "price", x = "class", data = df, hue='airline',kind="box", height = 5, aspect = 2)
 plt.title("Price based on Airlines and Class")
 plt.xlabel("Class")
 plt.ylabel("Price")
