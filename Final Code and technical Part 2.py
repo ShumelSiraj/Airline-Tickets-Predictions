@@ -1,3 +1,6 @@
+#%% [markdown]
+# Technical Code Part 2: Modeling 
+# * This file also includes the data cleaning and data processing so the results are accurate
 #%% importing libraries
 from os import remove
 import numpy as np
