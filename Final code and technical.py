@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from scipy import stats
 from scipy.stats import shapiro
 import statsmodels.api as sm
+from statsmodels.formula.api import ols
 #%% reading csv as dataframe
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
@@ -59,7 +60,7 @@ print(df.describe())
 #%% correlation map
 corr = df.corr()
 corr.style.background_gradient(cmap='plasma')
-
+#%%
 # df_corr value > 0.1
 df_corr = df.corr()['price'][:-1]
 important_feature_list = df_corr[abs(df_corr) > 0.1].sort_values(ascending=False)
@@ -127,7 +128,7 @@ stats.probplot(df['price'], dist='norm', plot=pylab)
 plt.title("Price")
 pylab.show()
 #%%
-# Scatterplot
+
 #%% Catplot
 #Comparing price distribution for different airlines
 palette = sns.color_palette("rocket")
@@ -148,7 +149,7 @@ plt.show()
 # Compare Source_city and Price
 palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "source_city", data = df.sort_values("price", ascending = False), kind="box", height = 6, aspect = 3)
-plt.title("Price based on sorce",fontsize=30)
+plt.title("Price Based on Source City",fontsize=30)
 plt.xlabel("source_city", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
 plt.show()  
@@ -157,24 +158,23 @@ plt.show()
 # Compare destination_city and Price
 palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "destination_city", data = df.sort_values("price", ascending = False), kind="box", height = 6, aspect = 3)
-plt.title("Price based on destination",fontsize=30)
+plt.title("Price Based on Destination City",fontsize=30)
 plt.xlabel("destination_city", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
 plt.show()  
 # We can see outliers all destinations cities except kolkata
 #%% barplot
 #days_left(numerical data) vs price
-df['days'] = pd.cut(df['days_left'],list(range(0,49,6)))
-sns.barplot(x = 'days',
-            y = 'price',
-            data = df)
+plt.figure(figsize = (20,10))
+sns.barplot(x = 'days_left',y = 'price', data = df)
+plt.title("Price Based on Days Left Until Departure")
 plt.show()
 #%%
 #subset based on class
 econ=df[df['class']==0]
 buz=df[df['class']==1]
 #%% Regplot
-#Price vs Duration(Economy class)
+#Price vs Duration(Economy Class)
 sns.set(font_scale=4)
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
@@ -189,7 +189,7 @@ ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],sc
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
 
-#Price vs Duration(Business class)
+#Price vs Duration(Business Class)
 sns.set(font_scale=4)
 fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
 plt.xlim(0, 55)
@@ -203,4 +203,7 @@ ax2.set_ylim(1, 40000)
 ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
+#%%
+
+# %%
 #%%

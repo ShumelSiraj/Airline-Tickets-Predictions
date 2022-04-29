@@ -210,7 +210,7 @@ plt.xlabel('Observation Number')
 plt.ylabel('Price')
 plt.legend()
 plt.show()
-# %%
+# %% knn model for economy class tickets (set 1)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_econ,ytrain_econ)
@@ -218,7 +218,7 @@ knn_price_pred_econ = knn.predict(xtest_econ)
 print(knn.score(xtest_econ,ytest_econ))
 print('R2 Value:',r2_score(ytest_econ, knn_price_pred_econ))
 
-# %%
+# %% knn model for business class tickets (set 1)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_buz,ytrain_buz)
@@ -236,7 +236,7 @@ model_econ_2 = ols(formula='price ~ C(stops) * days_left * C(source_city)', data
 model_econ_2_Fit = model_econ_2.fit()
 print(model_econ_2_Fit.summary())
 
-model_econ_3 = ols(formula='price ~  C(stops) + days_left + duration + C(source_city) + C(destination_city)', data=econ)
+model_econ_3 = ols(formula='price ~  C(stops) * days_left + duration * C(source_city) * C(destination_city)', data=econ)
 model_econ_3_Fit = model_econ_3.fit()
 print(model_econ_3_Fit.summary())
 
@@ -252,7 +252,7 @@ model_buz_2 = ols(formula='price ~ C(stops) * days_left * C(source_city)', data=
 model_buz_2_Fit = model_buz_2.fit()
 print(model_buz_2_Fit.summary())
 
-model_buz_3 = ols(formula='price ~  C(stops) + days_left + duration + C(source_city) + C(destination_city)', data=buz)
+model_buz_3 = ols(formula='price ~  C(stops) * days_left + duration * C(source_city) * C(destination_city)', data=buz)
 model_buz_3_Fit = model_buz_3.fit()
 print(model_buz_3_Fit.summary())
 
@@ -321,7 +321,7 @@ plt.xlabel('Observation Number')
 plt.ylabel('Price')
 plt.legend()
 plt.show()
-# %%
+# %% knn model for economy class tickets (set 2)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_econ,ytrain_econ)
@@ -329,7 +329,7 @@ knn_price_pred_econ = knn.predict(xtest_econ)
 print(knn.score(xtest_econ,ytest_econ))
 print('R2 Value:',r2_score(ytest_econ, knn_price_pred_econ))
 
-# %%
+# %% knn model for business class tickets (set 2)
 from sklearn.neighbors import KNeighborsClassifier
 knn = KNeighborsClassifier(n_neighbors=100)
 knn.fit(xtrain_buz,ytrain_buz)

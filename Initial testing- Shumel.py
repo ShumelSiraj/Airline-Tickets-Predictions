@@ -137,11 +137,6 @@ df_num.hist(figsize=(16, 20), bins=50, xlabelsize=8, ylabelsize=8);
 
 
 #%%
-from scipy.stats import shapiro
-data = df(columns= ['Source_City', 'Departure_Time', 'Stops', 'Arrival_Time', 'Destination_City', 'Class', 'Duration', 'Days_Left', 'Price']
-)
-stats, p = shapiro(data)
-#%%
 #Checking the normality
 #Shapiro-Wilk test: This test is most popular to test the normality. It has below hypothesis:
 #H0= The sample comes from a normal distribution.
