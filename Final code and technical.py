@@ -78,6 +78,7 @@ buz=df[df['class']==1]
 
 #%% Ticket Price Distribution
 plt.figure(figsize=(9, 8))
+plt.title("Density of Price")
 sns.distplot(df['price'], color='g', bins=100, hist_kws={'alpha': 0.4});
 #%% Numerical data distribution
 list(set(df.dtypes.tolist()))
@@ -168,7 +169,7 @@ brn_patch = mpatches.Patch(color='brown', label='Chennai')
 plt.legend(handles=[blue_patch,org_patch,grn_patch,red_patch,prp_patch,brn_patch], bbox_to_anchor=(1,1.25), loc='upper right')
 plt.show() 
 
-
+#%%
 # Compare destination_city and Price
 palette = sns.color_palette("rocket")
 sns.catplot(y = "price", x = "destination_city", data = df.sort_values("price", ascending = False), kind="box", height = 6, aspect = 3)
