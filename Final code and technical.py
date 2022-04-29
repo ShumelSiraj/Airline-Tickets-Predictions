@@ -9,6 +9,8 @@ from scipy import stats
 from scipy.stats import shapiro
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
+import matplotlib.patches as mpatches
+
 #%% reading csv as dataframe
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
@@ -152,13 +154,20 @@ plt.ylabel("Price")
 plt.show()
 #%%
 # Compare Source_city and Price
-palette = sns.color_palette("rocket")
+
 sns.catplot(y = "price", x = "source_city", data = df.sort_values("price", ascending = False), kind="box", height = 6, aspect = 3)
 plt.title("Price Based on Source City",fontsize=30)
 plt.xlabel("source_city", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
-plt.show()  
-# We can see outliers in delhi while the other cities not too different
+blue_patch = mpatches.Patch(color='blue', label='Mumbai')
+org_patch = mpatches.Patch(color='orange', label='Delhi')
+grn_patch = mpatches.Patch(color='green', label='Bangalore')
+red_patch = mpatches.Patch(color='red', label='Kolkata')
+prp_patch = mpatches.Patch(color='purple', label='Hyderabad')
+brn_patch = mpatches.Patch(color='brown', label='Chennai')
+plt.legend(handles=[blue_patch,org_patch,grn_patch,red_patch,prp_patch,brn_patch], bbox_to_anchor=(1,1.25), loc='upper right')
+plt.show() 
+
 
 # Compare destination_city and Price
 palette = sns.color_palette("rocket")
@@ -166,12 +175,20 @@ sns.catplot(y = "price", x = "destination_city", data = df.sort_values("price", 
 plt.title("Price Based on Destination City",fontsize=30)
 plt.xlabel("destination_city", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
-plt.show()  
-# We can see outliers all destinations cities except kolkata
+blue_patch = mpatches.Patch(color='blue', label='Mumbai')
+org_patch = mpatches.Patch(color='orange', label='Delhi')
+grn_patch = mpatches.Patch(color='green', label='Bangalore')
+red_patch = mpatches.Patch(color='red', label='Kolkata')
+prp_patch = mpatches.Patch(color='purple', label='Hyderabad')
+brn_patch = mpatches.Patch(color='brown', label='Chennai')
+plt.legend(handles=[blue_patch,org_patch,grn_patch,red_patch,prp_patch,brn_patch], bbox_to_anchor=(1,1.25), loc='upper right')
+plt.show() 
+ 
+
 #%% barplot
 #days_left(numerical data) vs price
 plt.figure(figsize = (20,10))
-sns.barplot(x = 'days_left',y = 'price', data = df)
+sns.scatterplot(x = 'days_left',y = 'price', data = df)
 plt.title("Price Based on Days Left Until Departure")
 plt.show()
 #%% Regplot
