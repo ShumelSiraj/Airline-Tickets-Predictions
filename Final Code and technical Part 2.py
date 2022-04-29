@@ -5,9 +5,9 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy import stats
-from scipy.stats import shapiro
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
+
 #%% reading csv as dataframe
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
@@ -260,6 +260,9 @@ MSE_CV = - cross_val_score(air_tree_buz, xtrain_buz, ytrain_buz, cv= 10, scoring
 print(MSE_CV)
 
 tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz2.dot",filled = True, feature_names=fn)
+#%%
+
+
 # %%
 number_of_observations=50
 x_ax = range(len(ytest_buz[:number_of_observations]))
