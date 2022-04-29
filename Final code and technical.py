@@ -153,7 +153,6 @@ plt.title("Price Based on Source City",fontsize=30)
 plt.xlabel("source_city", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
 plt.show()  
-# We can see outliers in delhi while the other cities not too different
 
 # Compare destination_city and Price
 palette = sns.color_palette("rocket")
@@ -162,7 +161,6 @@ plt.title("Price Based on Destination City",fontsize=30)
 plt.xlabel("destination_city", fontsize = 30)
 plt.ylabel("price", fontsize = 30)
 plt.show()  
-# We can see outliers all destinations cities except kolkata
 #%% barplot
 #days_left(numerical data) vs price
 plt.figure(figsize = (20,10))
@@ -203,7 +201,4 @@ ax2.set_ylim(1, 40000)
 ax3=sns.regplot( ax=ax3, x="duration", y="price", data=buz[buz['stops']==2],scatter_kws={"color": "black"}, line_kws={"color": "red"})
 ax3.set_title("2 or more stops", fontsize=30)
 ax3.set_ylim(1, 40000)
-#%%
-
-# %%
 #%%
