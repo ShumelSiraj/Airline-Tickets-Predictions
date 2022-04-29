@@ -1,110 +1,59 @@
-#%%
+#%% importing libraries
+from os import remove
 import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+from scipy import stats
+from scipy.stats import shapiro
+import statsmodels.api as sm
 from statsmodels.formula.api import ols
-# %%
-df_source= pd.read_csv("Clean_Dataset.csv")
-del df_source['Unnamed: 0']
-#%%
-
-coming_up=[]
-for value in df_source["days_left"]:
-    
-    if 0 <= value <= 7:
-        coming_up.append("Very Soon")
-    if 8 <= value <= 14:
-        coming_up.append("Soon")
-    if 15 <= value <= 35:
-        coming_up.append("Far Away")
-    if 36 <= value <= 49:
-        coming_up.append("Very Far Away") 
-df_source['Coming_up'] = pd.Series(coming_up)   
-print(df_source)
-
-
-#%%
+#%% reading csv as dataframe
 df= pd.read_csv("Clean_Dataset.csv")
 del df['Unnamed: 0']
 
-#%%[markdown]
-# Changed the "class" column values to numeric :   <br>
-#
-# "Economy" = 0   <br>
-# "Business" = 1
-
-# %%
+# %% Preprocessing
+#class
 df['class'].replace(['Economy', 'Business'], [0, 1], inplace=True)
 
-#%%[markdown]
-# Changed the "arrival_time" and "departure_time" column values to numeric :<br>
-#
-# 'Early_Morning' = 0   <br>
-# 'Morning' = 1         <br>
-# 'Afternoon' = 2       <br>
-# 'Evening' = 3         <br>
-# 'Night' = 4           
-
-# %%
+#arrival time
 df['arrival_time'].replace(['Early_Morning', 'Morning', 'Afternoon', 'Evening', 'Night', 'Late_Night'], [0, 1, 2, 3, 4, 5], inplace=True)
+
+#departure time
 df['departure_time'].replace(['Early_Morning', 'Morning', 'Afternoon', 'Evening', 'Night', 'Late_Night'], [0, 1, 2, 3, 4, 5], inplace=True)
 
-#%%[markdown]
-# Changed the "source_city" and "destination_city" column values to numeric :  <br>    
-#
-# 'Mumbai' = 0     <br>
-# 'Delhi' = 1      <br>
-# 'Bangalore' = 2  <br> 
-# 'Kolkata' = 3    <br> 
-# 'Hyderabad' = 4  <br>  
-# 'Chennai' = 5    <br>  
-
-#%%
+#source city
 df['source_city'].replace(["Mumbai", "Delhi", "Bangalore", "Kolkata", "Hyderabad", "Chennai"], [0, 1, 2, 3, 4, 5], inplace= True)
+
+#destination city
 df['destination_city'].replace(["Mumbai", "Delhi", "Bangalore", "Kolkata", "Hyderabad", "Chennai"], [0, 1, 2, 3, 4, 5], inplace= True)
-#%%[markdown]
-# Changed the "stops" column values to numeric : <br>
-#
-# "zero" = 0   <br>
-# "one" = 1    <br>
-# "two_or_more" = 2
 
-#%%
+#stops
 df['stops'].replace(['zero', 'one', 'two_or_more'], [0, 1, 2], inplace=True)
-# %%
-corr = df.corr()
-ax1 = sns.heatmap(corr, cbar=0, linewidths=2,vmax=1, vmin=0, square=True, cmap='Blues', annot=True,annot_kws = {'size':5})
-plt.title("correlation of all the variables")
-plt.show()
-# %%
-df
 
+#%% checking for inconsistancies in the df
+
+#Create a new function:
+def num_missing(x):
+  return sum(x.isnull())
+
+#Checking for missing values in columns:
+print ("Missing values per column:")
+print (df.apply(num_missing, axis=0)) 
+
+#Checking for missing values in columns:
+print ("\nMissing values per row:")
+print (df.apply(num_missing, axis=1).head()) 
+
+#Checking for null values in columns:
+print(f"We have {df.isnull().sum()} null values")
+
+#Checking for duplicate values in columns:
+print(f"We have {df.duplicated().sum()} duplicate values")
+#
 #%% subset of economy and business data 
 econ=df[df['class']==0]
-econ_source=df_source[df_source['class']=='Economy']
-
 buz=df[df['class']==1]
-buz_source=df_source[df_source['class']=='Business']
-# %% scatterplots for each airline for different number of stops
-
-# Economy
-fig1, (ax1,ax2,ax3) = plt.subplots(1,3,figsize=(55,20))
-plt.xlim(0, 55)
-fig1.suptitle("Airline: Air_India", fontsize=60)
-ax1=sns.regplot( ax=ax1, x="duration", y="price", data=econ[econ['stops']==0],scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax1.set_title("0 stops", fontsize=30)
-ax1.set_ylim(1, 40000)
-ax2=sns.regplot( ax=ax2, x="duration", y="price", data=econ[econ['stops']==1],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax2.set_title("1 stop", fontsize=30)
-ax2.set_ylim(1, 40000)
-ax3=sns.regplot( ax=ax3, x="duration", y="price", data=econ[econ['stops']==2],
-scatter_kws={"color": "black"}, line_kws={"color": "red"})
-ax3.set_title("2 or more stops", fontsize=30)
-ax3.set_ylim(1, 40000)
-
-# Business
 
 
 # %% linear model for economy class tickets (set 1)
