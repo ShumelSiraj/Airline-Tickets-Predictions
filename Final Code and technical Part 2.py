@@ -295,4 +295,4 @@ print('R2 Value:',r2_score(ytest_buz, knn_price_pred_econ))
 
 #%%
 
-# %%
+
