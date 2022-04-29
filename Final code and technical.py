@@ -130,7 +130,6 @@ stats.probplot(df['price'], dist='norm', plot=pylab)
 plt.title("Price")
 pylab.show()
 #%%
-
 #%% Catplot
 #Comparing price distribution for different airlines
 palette = sns.color_palette("rocket")
