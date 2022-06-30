@@ -117,7 +117,7 @@ print("The r square value is:", r2_score(ytest_econ,price_pred_econ))
 MSE_CV = - cross_val_score(air_tree_econ, xtrain_econ, ytrain_econ, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 
-tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ_1.dot",filled = True, feature_names=fn)
+#tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ_1.dot",filled = True, feature_names=fn)
 #%%
 number_of_observations=50
 x_ax = range(len(ytest_econ[:number_of_observations]))
@@ -150,7 +150,7 @@ print("The r square value is:", r2_score(ytest_buz,price_pred_buz))
 MSE_CV = - cross_val_score(air_tree_buz, xtrain_buz, ytrain_buz, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 
-tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz.dot_1",filled = True, feature_names=fn)
+#tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz.dot_1",filled = True, feature_names=fn)
 
 # %%
 number_of_observations=50
@@ -229,7 +229,7 @@ print("The r square value is:", r2_score(ytest_econ,price_pred_econ))
 MSE_CV = - cross_val_score(air_tree_econ, xtrain_econ, ytrain_econ, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 
-tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ_2.dot",filled = True, feature_names=fn)
+#tree.export_graphviz(air_tree_econ,out_file="Regression_Tree_Econ_2.dot",filled = True, feature_names=fn)
 #%%
 number_of_observations=50
 x_ax = range(len(ytest_econ[:number_of_observations]))
@@ -262,7 +262,7 @@ print("The r square value is:", r2_score(ytest_buz,price_pred_buz))
 MSE_CV = - cross_val_score(air_tree_buz, xtrain_buz, ytrain_buz, cv= 10, scoring='neg_mean_squared_error')
 print(MSE_CV)
 
-tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz2.dot",filled = True, feature_names=fn)
+#tree.export_graphviz(air_tree_buz,out_file="Regression_Tree_Buz2.dot",filled = True, feature_names=fn)
 #%%
 
 
